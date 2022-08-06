@@ -13,7 +13,6 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)
 [![](https://app.codecov.io/gh/maxwestphal/cases/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maxwestphal/cases)
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
-[![R-CMD-check](https://github.com/maxwestphal/cases/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maxwestphal/cases/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **cases** is an R package to simultaneously assess classification
