@@ -34,7 +34,6 @@ cov2se <- function(cov){
   sqrt(cov2var(cov))
 }
 
-
 ## calculations based on raw data
 dat2est <- function(dat, regu=c(0,0,0)){
   n <- nrow(dat)
@@ -88,7 +87,6 @@ nan2zero <- function(x){
   x[is.nan(x)] <- 0
   return(x)
 }
-
 
 combine_tstat <- function(est, tstat, analysis){
   if(analysis == "co-primary"){
