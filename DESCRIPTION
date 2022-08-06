@@ -1,0 +1,42 @@
+Package: cases
+Type: Package
+Title: Stratified Evaluation of Subgroup Classification Accuracy
+Version: 0.1.0.0000
+Authors@R: 
+    person(given = "Max",
+           family = "Westphal",
+           role = c("aut", "cre"),
+           email = "mwestphal@uni-bremen.de",
+           comment = c(ORCID = "0000-0002-8488-758X"))
+Description: Perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    bindata,
+    boot,
+    copula,
+    corrplot,
+    dplyr,
+    extraDistr,
+    magrittr,
+    Matrix,
+    multcomp,
+    mvtnorm,
+    ggplot2
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    covr,
+    badger,
+    opendata,
+    glmnet,
+    splitstackshape
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+URL: https://github.com/maxwestphal/cases
+BugReports: https://github.com/maxwestphal/cass/issues
+Remotes: maxwestphal/opendata

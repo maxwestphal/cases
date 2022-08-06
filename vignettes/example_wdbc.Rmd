@@ -1,0 +1,189 @@
+---
+title: "Real-world example: biomarker assessment and prediction model evaluation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{example_wdbc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The goal of is this vignette is to illustrate the cases functionality by means of a real-world 
+example focused on biomarker assessment and prediction model evaluation.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+
+## Preparation
+
+Load the package:
+
+```{r setup}
+library(cases)
+```
+
+
+## Introduction
+```{r}
+## load packages:
+library(readr)
+library(dplyr)
+library(splitstackshape)
+library(glmnet)
+library(cases)
+```
+
+We utilize the opendata package to load the wdbc dataset. 
+breast cancer wisconsin (diagnostic) data set
+
+```{r}
+data<- opendata::load_data("wdbc") %>% 
+  dplyr::mutate(diagnosis = as.factor(diagnosis)) 
+
+dim(data)
+
+table(data$diagnosis) 
+
+## Missing values?
+colSums(is.na(data)) # -> no missing values
+```
+
+```{r}
+summary(data)
+```
+
+
+```{r}
+## define minimal acceptable criteria for specificity, sensitivity:
+sp0 <- 0.7
+se0 <- 0.9
+benchmark <- c(sp0, se0)
+```
+
+## Scenario A: Biomarker assessment
+
+```{r}
+pr <- seq(0,1, 0.1) # orig
+#pr <- c(0.25, 0.5, 0.75) # new
+
+quantile(data$area_peak, pr) # 500, 600, 700, 800, 900 ---> area
+quantile(data$compactness_peak, pr) # 0.10, 0.15, 0.20, 0.25, 0.30 ---> compactness (perimeter^2 / area - 1.0)
+quantile(data$concavity_peak, pr) # 0.10, 0.15, 0.20, 0.25, 0.30 ---> concavity (severity of concave portions of the contour)
+
+```
+
+```{r}
+cc <- c(500, 600, 700, 800, 900, 
+        0.10, 0.15, 0.20, 0.25, 0.30,
+        0.10, 0.15, 0.20, 0.25, 0.30) 
+```
+
+
+```{r}
+comp_bm <- data %>% 
+  dplyr::select(area_peak, compactness_peak, concavity_peak) %>% 
+  cases::categorize(cc, rep(1:3, each=5)) %>% 
+  cases::compare(labels = as.numeric(as.character(data$diagnosis)))
+
+results_bm <- cases::evaluate(comp_bm, benchmark = benchmark,
+                              alternative = "greater", alpha = 0.025,
+                              adj="boot", regu=1, ) 
+results_bm
+```
+
+
+```{r}
+visualize(results_bm)
+```
+
+
+
+## Scenario B: Prediction model evaluation
+
+```{r}
+## data splitting:
+set.seed(1337)
+split <- stratified(data, c('diagnosis'), 1/3, bothSets = TRUE)
+val <- split[[1]] %>% as.data.frame()
+trn <- split[[2]] %>% as.data.frame()
+dim(trn)
+dim(val)
+table(val$diagnosis)
+```
+
+```{r}
+## train example model
+mod <- glmnet(x=trn[,-1], y=trn[,1], family="binomial", alpha=0.25)
+str(mod, 0)
+```
+
+```{r}
+set.seed(1337)
+
+## define hyperparameter values for L1/L2 penalty mixing parameter (alpha):
+aa <- c(0, 0.25, 0.5, 0.75, 1)
+
+## train models and create predictions:
+pred_pm <- sapply(aa, function(alpha){
+  mod_pm <- cv.glmnet(x = as.matrix(trn[,-1]), y=trn[,1],
+                      family = "binomial",
+                      type.measure = "class",
+                      alpha = alpha)
+  message(paste0("cv.glmnet (alpha = ", alpha, "):"))
+  print(mod_pm)
+  message("+++++")
+  predict(mod_pm, as.matrix(val[,-1]), type="response")
+})
+colnames(pred_pm) <- paste0("en", aa*100)
+
+
+```
+
+```{r}
+head(pred_pm)
+```
+
+
+```{r}
+## define cutpoints (probability scale):
+cc <- rep(seq(0.1, 0.5, 0.1), 5)
+mm <- rep(1:5, each=5)
+
+## create predictions: 
+comp_pm <- pred_pm %>% 
+  cases::categorize(cc, mm) %>% 
+  cases::compare(labels = as.numeric(as.character(val$diagnosis)))
+str(comp_pm, 1)
+```
+
+```{r}
+## conduct statistical analysis:
+set.seed(1337)
+results_pm <- cases::evaluate(comp_pm, benchmark = benchmark,
+                              alternative = "greater", alpha = 0.025,
+                              adj="boot", regu=1) 
+str(results_pm, 1)
+```
+
+
+
+```{r}
+results_pm %>% lapply(filter, reject_all) 
+```
+
+
+```{r}
+visualize(results_pm)
+```
+
+---
+
+## References
+
+- [Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).](https://arxiv.org/abs/2105.13469)
+- "Breast Cancer Wisconsin (Diagnostic) Data Set" at the UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/breast+cancer+wisconsin+(diagnostic) 

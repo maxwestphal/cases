@@ -1,0 +1,9 @@
+^cases\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+dev
+^codecov\.yml$
+^\.github$
+README.Rmd
+vignettes
+^README\.Rmd$

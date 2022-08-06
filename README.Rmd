@@ -1,0 +1,71 @@
+---
+title: "README"
+author: "Max Westphal (max.westphal@mevis.fraunhofer.de)"
+output: md_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+# cases: Stratified Evaluation of Subgroup Classification Accuracy
+
+<!-- badges: start -->
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+`r badger::badge_devel(color="blue")`
+`r badger::badge_cran_release(color="orange")`
+`r badger::badge_github_actions(action="R-CMD-check")`
+`r badger::badge_codecov()`
+[![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
+<!-- badges: end -->
+
+**cases** is an R package to simultaneously assess classification accuracy of multiple classifiers 
+in several subgroups (strata). The package implements different methods for multiplicity adjustment
+for that purpose (e.g. Bonferonni, maxT, pairs bootstrap).
+For instance, it allows to asses the accuracy of multiple candidate (index) diagnostic tests which is often measured with the two co-primary endpoints 
+
+- sensitivity (accuracy in the diseased subgroup) and
+- specificity (accuracy in the healthy subgroup).
+
+---
+
+## Installation
+
+You can install the development version of cases from [GitHub](https://github.com/) with:
+
+```{r install, eval=FALSE, echo=TRUE}
+# install.packages("remotes")
+remotes::install_github('maxwestphal/cases', build_vignettes = TRUE)
+```
+
+
+---
+
+## Usage
+
+A vignette which explains the basic functionality of the cases package can be displayed as 
+follows:
+ 
+```{r vignette_1, eval=FALSE, echo=TRUE}
+vignette(topic="package_overview", package = "cases")
+```
+
+The following vignette shows an exemplary usage of the package in the context of biomarker assessment 
+and prediction model evaluation:
+
+```{r vignette_2, eval=FALSE, echo=TRUE}
+vignette(topic="example_wdbc", package = "cases")
+```
+
+
+---
+
+## References
+
+- [Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).](https://arxiv.org/abs/2105.13469)

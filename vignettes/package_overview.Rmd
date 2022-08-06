@@ -1,0 +1,194 @@
+---
+title: "R package cases: overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{package_overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The goal of is this vignette is to illustrate the R package **cases** by some elementary code examples.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+
+## Preparation
+
+Load the package:
+
+```{r setup}
+library(cases)
+```
+
+## Important functions
+
+### categorize()
+Often, binary predictions are not readily available but rather need to be 
+derived from continuous (risk) scores. This can be done via the categorize
+function.
+
+```{r categorize1}
+# real data example from publication here
+set.seed(123)
+M <- as.data.frame(mvtnorm::rmvnorm(10, mean=rep(0, 3), sigma=2*diag(3)))
+M
+
+## categorize at 0 by default
+yhat <- categorize(M)
+yhat
+
+## define multiple cutpoints to define multiple decision rules per marker
+C <- c(0, 1, 0, 1, 0, 1)
+a <- c(1, 1, 2, 2, 3, 3)
+categorize(M, C, a)
+
+
+## this can even be used to do multi-class classification, like this:
+C <- matrix(rep(c(-1, 0, 1, -2, 0, 2), 3), ncol=3, byrow = TRUE)
+C
+categorize(M, C, a)
+```
+
+
+### compare()
+In supervised classification, it is assumed that we have a true set of labels.
+In medical testing, this is usually called the reference standard provided by
+an established diagnostic/prognostic tool.
+We need to compare model predictions against these labels in order to compute 
+model accuracy. 
+
+```{r compare1}
+## consider binary prediction from 3 models from previous r chunk
+names(yhat) <- paste0("rule", 1:ncol(yhat))
+yhat
+
+## assume true labels
+y <- c(rep(1, 5), rep(0, 5))
+
+## compare then results in 
+compare(yhat, y)
+```
+
+
+
+### evaluate()
+Main function of the package
+
+```{r evaluate1}
+evaluate(compare(yhat, y))
+```
+
+More details on the dta function are provided in the last section
+
+### draw_data()
+cases includes a few functions for synthetic data generation
+
+```{r draw_data1}
+draw_data_lfc(n=20)
+```
+
+
+```{r draw_data2}
+draw_data_roc(n=20)
+```
+
+Remark: Synthetic data comes at the 'compared' level meaning the labels 1 and 0
+indicate correct and false predictions, respectively. No need to compare() in addition.
+
+## Common workflows
+
+The pipe operator '%>%'
+allows us to chain together subsequent operations in R. 
+This is useful, as the dta function expects preprocessed data indicating 
+correct (1) and false (0) predictions. 
+
+
+```{r workflow1}
+M %>%
+  categorize() %>%
+  compare(y) %>%
+  evaluate()
+```
+
+
+## Multiple testing for co-primary endpoints
+
+### Specification of hypotheses
+
+The R command
+
+```{r dtafun1, eval=FALSE}
+?evaluate 
+```
+
+gives an overview over the function arguments of the evaluate function.
+
+- comparator defines one of the classification rules under consideration to be the primary comparator
+- benchmark is a pre-defined accuracy categorize for each subgroup
+
+Together this implies the hypotheses system that is considered, namely
+
+$H_0: \forall g \forall j: \theta_j^g \leq \theta_0^g$
+
+In the application of primary interest, diagnostic accuracy studies, this simplifies
+to $G=2$ with $\theta_1 = Se$ and $\theta_2 =Sp$ indicating sensitivity and specificity
+of a medical test or classication rule. In this case we aim to reject the global null hypothesis
+
+$H_0: \forall j: Se_j \leq Se_0 \wedge Sp_j \leq Sp_0$
+
+
+### Comparison vs. confidence regions
+
+In the following, we highlight the difference between the "co-primary" analysis (comparison regions) and a "full" analysis (confidence regions).
+
+```{r}
+set.seed(1337)
+
+data <- draw_data_roc(n=120, prev=c(0.25, 0.75), m=4,
+                      delta=0.05, e=10, auc=seq(0.90, 0.95, 0.025), rho=c(0.25, 0.25))
+
+head(data)
+```
+
+```{r viz_comp}
+## comparison regions
+results_comp <- data %>% evaluate(alternative ="greater",
+                                  alpha=0.025,
+                                  benchmark = c(0.7, 0.8),
+                                  analysis = "co-primary",
+                                  regu = TRUE,
+                                  adj = "maxt")
+visualize(results_comp)
+```
+
+
+```{r}
+## confidence regions
+results_conf <- data %>% evaluate(alternative = "greater",
+                                  alpha = 0.025,
+                                  benchmark = c(0.7, 0.8),
+                                  analysis = "full",
+                                  regu = TRUE,
+                                  adj = "maxt")
+visualize(results_conf)
+```
+
+As we can see, the comparison regions are more liberal compared to the confidence regions.
+
+## Real data example
+
+A second vignette shows an application of the cases package to the Breast Cancer Wisconsin Diagnostic (wdbc) data set.
+
+```{r example_wdbc, eval=FALSE, echo=TRUE}
+vignette("example_wdbc", "cases")
+```
+
+## References
+
+- [Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).](https://arxiv.org/abs/2105.13469)
