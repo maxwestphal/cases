@@ -13,17 +13,23 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)
 [![](https://app.codecov.io/gh/maxwestphal/cases/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maxwestphal/cases)
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
+[![R-CMD-check](https://github.com/maxwestphal/cases/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maxwestphal/cases/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **cases** is an R package to simultaneously assess classification
-accuracy of multiple classifiers in several subgroups (strata). The
-package implements different methods for multiplicity adjustment for
-that purpose (e.g. Bonferonni, maxT, pairs bootstrap). For instance, it
-allows to asses the accuracy of multiple candidate (index) diagnostic
-tests which is often measured with the two co-primary endpoints
+accuracy of multiple classifiers in several subgroups (strata). For
+instance, it allows to asses the accuracy of multiple candidate (index)
+diagnostic tests which is often measured with
 
 -   sensitivity (accuracy in the diseased subgroup) and
 -   specificity (accuracy in the healthy subgroup).
+
+A widespread goal in diagnostic accuracy studies a so-called
+**co-primary** analysis of these two endpoints, i.e. to show a
+significant benefit (compared to some benchmark) in sensitivity **and**
+specificity for **at least one** of the candidate classifiers. The
+package implements different methods for multiplicity adjustment for
+that purpose (e.g. Bonferroni, maxT, pairs bootstrap).
 
 ------------------------------------------------------------------------
 
