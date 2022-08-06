@@ -23,7 +23,6 @@ knitr::opts_chunk$set(
 `r badger::badge_github_actions(action="R-CMD-check")`
 `r badger::badge_codecov()`
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
-[![R-CMD-check](https://github.com/maxwestphal/cases/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maxwestphal/cases/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **cases** is an R package to simultaneously assess classification accuracy of multiple classifiers 
