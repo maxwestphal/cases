@@ -10,7 +10,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![](https://img.shields.io/badge/devel%20version-0.1.0.0000-blue.svg)](https://github.com/maxwestphal/cases)
 [![](https://www.r-pkg.org/badges/version/cases?color=orange)](https://cran.r-project.org/package=cases)
 [![R build
-status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)
+status](https://github.com/maxwestphal/cases/workflows/check-standard/badge.svg)](https://github.com/maxwestphal/cases/actions)
 [![](https://app.codecov.io/gh/maxwestphal/cases/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maxwestphal/cases)
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
 <!-- badges: end -->

@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 `r badger::badge_devel(color="blue")`
 `r badger::badge_cran_release(color="orange")`
-`r badger::badge_github_actions(action="R-CMD-check")`
+`r badger::badge_github_actions(action="check-standard")`
 `r badger::badge_codecov()`
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
 <!-- badges: end -->
