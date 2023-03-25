@@ -16,24 +16,30 @@
 #' @param analysis character, "co-primary" or "full"
 #' @param regu numeric vector of length 3, specify type of shrinkage.
 #' Alternatively, logical of length one (TRUE := c(2, 1, 1/2), FALSE := c(0, 0, 0))
-#' @param pars further parameters given as named list
-#' @param ... additional named parameters
+#' @param pars further parameters given as named list list(type="pairs", nboot=10000)
+#' @param ... additional named parameters, can be used instead of (in in conjunction with) \code{pars}
 #'
 #' @return cases_results object, which is a list of analysis results
 #' @details 
-#' Adjustment methods:
-#' - "none" (default): no adjustment for multiplicity
-#' - "bonferroni": Bonferroni adjustment
-#' - "maxt": maxT adjustment
-#' - "bootstrap": Bootstrap approach, whereby several details can be set via the 
-#' 'pars' argument (see below)
-#' - "mbeta": This heuristic Bayesian approach is based on a multivariate beta-binomial model.
+#' Adjustment methods (\code{adjustment}) and additional parameters (\code{pars} or \code{...}):\cr
 #' 
-#' Additional parameters to be adjusted via 'pars=list(par1=val1, par2=val2, ...)', e.g. list(type="pairs", nboot=10000), alternatively via '...'
-#' - type: "pairs" (default) or "wild" = type of bootstrap
-#' - nboot = number of bootstrap draws (default 5000)
-#' - res_tra = 0,1,2 or 3 = type of residual transformation of wild boostrap (default = 0: no transformation)
+#' \strong{"none"} (default): no adjustment for multiplicity\cr
+#' 
+#' \strong{"bonferroni"}: Bonferroni adjustment\cr
+#' 
+#' \strong{"maxt"}: maxT adjustment\cr
+#' 
+#' \strong{"bootstrap"}: Bootstrap approach
+#' - type: "pairs" (default) or "wild" = type (for adjustment="bootstrap)
+#' - nboot: number of bootstrap draws (default: 5000)
+#' - res_tra: = 0,1,2 or 3 = type of residual transformation of wild boostrap (default = 0: no transformation)
 #' (see https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf)
+#' 
+#' \strong{"mbeta"}: A heuristic Bayesian approach which is based on a multivariate beta-binomial model.
+#' - nrep: number of posterior draws (default: 5000)
+#' - lfc_pr: prior probability of 'least-favorable parameter configuration' (default: 1). 
+
+
 #'
 #' @export
 #'

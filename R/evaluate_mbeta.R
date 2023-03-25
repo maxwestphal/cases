@@ -1,4 +1,4 @@
-evaluate_mbeta <- function(data = draw_data(seed=1337),
+evaluate_mbeta <- function(data = draw_data(),
                            contrast = define_contrast("raw"),
                            benchmark = 0.5,
                            alpha = 0.05,
@@ -12,7 +12,7 @@ evaluate_mbeta <- function(data = draw_data(seed=1337),
   stopifnot(transformation == "none")
   
   nrep <- ifelse(is.null(pars$nrep), 5000, pars$nrep)
-  lfcp <- ifelse(is.null(pars$lfcp), NA, pars$lfcp) 
+  lfc_pr <- ifelse(is.null(pars$lfc_pr), NA, pars$lfc_pr) 
   
   G <- length(data)
   m <- ncol(data[[1]])
@@ -29,7 +29,7 @@ evaluate_mbeta <- function(data = draw_data(seed=1337),
   ## credible region:
   qstar <- stats::uniroot(f=eval_cr, interval=c(0, 0.5),
                    moms=moms, pss=pss, type=type, alpha=alpha,
-                   alternative=alternative, analysis=analysis, lfcp=lfcp)$root
+                   alternative=alternative, analysis=analysis, lfc_pr=lfc_pr)$root
   crs <- get_cr(moms, pss, type=type, q=qstar, alternative=alternative) 
   
   ## output:
@@ -54,32 +54,32 @@ evaluate_mbeta <- function(data = draw_data(seed=1337),
 
 
 # Helper functions ----------------------------------------------------------------------------
-eval_cr <- function(q, moms, pss, type, alpha, alternative, analysis, lfcp=1){
+eval_cr <- function(q, moms, pss, type, alpha, alternative, analysis, lfc_pr=1){
   crs <- get_cr(moms, pss, type, q, alternative)
-  coverage(crs, pss, analysis, lfcp) - (1-alpha)
+  coverage(crs, pss, analysis, lfc_pr) - (1-alpha)
 }
 
 
-coverage <- function(crs, pss, analysis="co-primary", lfcp=NA){
+coverage <- function(crs, pss, analysis="co-primary", lfc_pr=NA){
   nrep <- nrow(pss[[1]]) 
   m <- ncol(pss[[1]])
   G <- length(pss)
   H <- switch(analysis, "co-primary" = 1, "full" = G)
-  if(is.na(lfcp)){lfcp <- switch(analysis, "co-primary" = 1, "full" = 0)}
+  if(is.na(lfc_pr)){lfc_pr <- switch(analysis, "co-primary" = 1, "full" = 0)}
 
   L <- lapply(crs, function(x) matrix(x$lower, nrow=nrep, ncol=m, byrow=TRUE))
   U <- lapply(crs, function(x) matrix(x$upper, nrow=nrep, ncol=m, byrow=TRUE))
   
   C <- lapply(1:G, function(g) covered(pss[[g]], L[[g]], U[[g]]))
   
-  mean(apply(Reduce("+", postproc(C, nrep, m, G, lfcp)), 1, min) >= H)
+  mean(apply(Reduce("+", postproc(C, nrep, m, G, lfc_pr)), 1, min) >= H)
 }
 
 
-postproc <- function(C, nrep, m, G, lfcp=0){
-  if(lfcp == 0){return(C)}
-  ## 'split prior' approach (1-lfcp mass on regular dist, lfcpr mass on 'LFC'):
-  M <- matrix(sample(0:1, nrep*m, replace=TRUE, prob=c(1-lfcp, lfcp)) * 
+postproc <- function(C, nrep, m, G, lfc_pr=0){
+  if(lfc_pr == 0){return(C)}
+  ## 'split prior' approach (1-lfc_pr mass on regular dist, lfc_pr mass on 'LFC'):
+  M <- matrix(sample(0:1, nrep*m, replace=TRUE, prob=c(1-lfc_pr, lfc_pr)) * 
                 sample(1:G, nrep*m, replace=TRUE),
               nrow=nrep, ncol=m, byrow=FALSE) 
   lapply( 1:G, function(g){(M %in% c(0, g)) * C[[g]]} )

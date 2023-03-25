@@ -24,12 +24,6 @@ knitr::opts_chunk$set(
 Load the package:
 
 ```{r setup}
-library(cases)
-```
-
-
-## Introduction
-```{r}
 ## load packages:
 library(readr)
 library(dplyr)
@@ -37,6 +31,9 @@ library(splitstackshape)
 library(glmnet)
 library(cases)
 ```
+
+
+## Introduction
 
 We utilize the opendata package to load the wdbc dataset. 
 breast cancer wisconsin (diagnostic) data set
@@ -68,8 +65,7 @@ benchmark <- c(sp0, se0)
 ## Scenario A: Biomarker assessment
 
 ```{r}
-pr <- seq(0,1, 0.1) # orig
-#pr <- c(0.25, 0.5, 0.75) # new
+pr <- seq(0,1, 0.1) 
 
 quantile(data$area_peak, pr) # 500, 600, 700, 800, 900 ---> area
 quantile(data$compactness_peak, pr) # 0.10, 0.15, 0.20, 0.25, 0.30 ---> compactness (perimeter^2 / area - 1.0)
@@ -92,7 +88,7 @@ comp_bm <- data %>%
 
 results_bm <- cases::evaluate(comp_bm, benchmark = benchmark,
                               alternative = "greater", alpha = 0.025,
-                              adj="boot", regu=1, ) 
+                              adj="boot", regu=1) 
 results_bm
 ```
 
