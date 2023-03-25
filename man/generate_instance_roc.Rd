@@ -13,6 +13,7 @@ generate_instance_roc(
   auc = "seq(0.85, 0.95, length.out = 5)",
   rhose = 0.5,
   rhosp = 0.5,
+  dist = "normal",
   e = 10,
   k = 100,
   delta = 0,
@@ -37,6 +38,8 @@ generate_instance_roc(
 \item{rhose}{numeric}
 
 \item{rhosp}{numeric}
+
+\item{dist}{character}
 
 \item{e}{numeric}
 

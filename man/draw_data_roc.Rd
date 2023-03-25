@@ -11,6 +11,7 @@ draw_data_roc(
   m = 10,
   auc = seq(0.85, 0.95, length.out = 5),
   rho = c(0.25, 0.25),
+  dist = c("normal", "exponential"),
   e = 10,
   k = 100,
   delta = 0,
@@ -32,9 +33,11 @@ draw_data_roc(
 
 \item{rho}{numeric, vector (length 2) of correlations between biomarkers}
 
+\item{dist}{character, either "normal" or "exponential" specifying the subgroup biomarker distributions}
+
 \item{e}{numeric, emulates better (worse) model selection quality with higher (lower) values of e}
 
-\item{k}{integer, technical parameter which adjusts grid size, can stay at default (1000)}
+\item{k}{integer, technical parameter which adjusts grid size}
 
 \item{delta}{numeric, specify importance of sensitivity and specificity (default 0)}
 

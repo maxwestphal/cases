@@ -68,6 +68,7 @@ generate_instance_lfc <- function(nrep = 10,
 #' @param auc numeric
 #' @param rhose numeric
 #' @param rhosp numeric
+#' @param dist character
 #' @param e numeric
 #' @param k numeric
 #' @param delta numeric
@@ -84,6 +85,7 @@ generate_instance_roc <- function(nrep = 10,
                                   auc = "seq(0.85, 0.95, length.out = 5)",
                                   rhose = 0.5,
                                   rhosp = 0.5,
+                                  dist = "normal",
                                   e = 10,
                                   k = 100,
                                   delta = 0,
