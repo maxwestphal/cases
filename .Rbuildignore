@@ -6,4 +6,5 @@ dev
 ^\.github$
 README.Rmd
 vignettes
+^LICENSE.md$
 ^README\.Rmd$

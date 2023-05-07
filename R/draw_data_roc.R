@@ -165,26 +165,4 @@ draw_subgroups <- function(auc, r, rho, ng, dist){
 
 
 
-# TODO: clean up
-# https://pjsor.com/pjsor/article/view/992/452
-# auc_biexp <- function(lambda0=1, lambda1=2){
-#   lambda0 / (lambda0 + lambda1)
-# }
-# 
-# auc_biexp(1, 1/(1:10))
-# 
-# auc = l0 / (l0+l1)
-# 
-# 1/auc = (l0+l1)/l0
-# 
-# l0/auc = l0+l1
-# 
-# l0/auc -l0 = l1
-# 
-# 
-# auc=.9
-# l0=10
-# l1 = l0/auc -l0
-# 
-# l1
-# auc_biexp(1, l1)
+
