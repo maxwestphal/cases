@@ -6,9 +6,9 @@ Authors@R:
     person(given = "Max",
            family = "Westphal",
            role = c("aut", "cre"),
-           email = "max.westphal@mevis.fraunhofer.de",
+           email = "max.westphal@steady.ai",
            comment = c(ORCID = "0000-0002-8488-758X"))
-Description: Perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints.
+Description: This package allows to conduct simultaneous statistical inference for the accuracy of multiple classifiers in multiple subgroups (strata). For instance, one may perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints sensitivity and specificity. (Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
