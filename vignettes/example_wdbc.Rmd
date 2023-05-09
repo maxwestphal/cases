@@ -35,13 +35,15 @@ library(cases)
 
 ## Introduction
 
-We utilize the opendata package to load the wdbc dataset. 
-breast cancer wisconsin (diagnostic) data set
+We utilize the breast cancer wisconsin (diagnostic) data set.
 
 ```{r}
-data<- opendata::load_data("wdbc") %>% 
-  dplyr::mutate(diagnosis = as.factor(diagnosis)) 
+?data_wdbc
+data <- data_wdbc
+```
 
+
+```{r}
 dim(data)
 
 table(data$diagnosis) 
