@@ -2,7 +2,7 @@
 title: "Real-world example: biomarker assessment and prediction model evaluation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{example_wdbc}
+  %\VignetteIndexEntry{Real-world example: biomarker assessment and prediction model evaluation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

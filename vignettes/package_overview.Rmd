@@ -2,7 +2,7 @@
 title: "R package cases: overview"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{package_overview}
+  %\VignetteIndexEntry{R package cases: overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

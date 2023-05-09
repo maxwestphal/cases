@@ -1,14 +1,14 @@
 Package: cases
 Type: Package
 Title: Stratified Evaluation of Subgroup Classification Accuracy
-Version: 0.1.1.0000
+Version: 0.1.1
 Authors@R: 
     person(given = "Max",
            family = "Westphal",
            role = c("aut", "cre"),
            email = "max.westphal@steady.ai",
            comment = c(ORCID = "0000-0002-8488-758X"))
-Description: This package allows to conduct simultaneous statistical inference for the accuracy of multiple classifiers in multiple subgroups (strata). For instance, one may perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints sensitivity and specificity. (Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).)
+Description: Enables simultaneous statistical inference for the accuracy of multiple classifiers in multiple subgroups (strata). For instance, allows to perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints sensitivity and specificity. (Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." <arXiv:2105.13469> (2021).)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -27,6 +27,7 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
+    readr,
     rmarkdown,
     covr,
     badger,
@@ -34,9 +35,9 @@ Suggests:
     splitstackshape
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown
 Config/testthat/edition: 3
 URL: https://github.com/maxwestphal/cases
-BugReports: https://github.com/maxwestphal/cass/issues
+BugReports: https://github.com/maxwestphal/cases/issues
 Depends: 
     R (>= 2.10)

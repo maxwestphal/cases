@@ -5,6 +5,7 @@ dev
 ^codecov\.yml$
 ^\.github$
 README.Rmd
-vignettes
 ^LICENSE.md$
 ^README\.Rmd$
+^doc$
+^Meta$
