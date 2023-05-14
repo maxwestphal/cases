@@ -50,6 +50,9 @@ generate_instance_lfc(
 
 \item{job}{ignored (for batchtools compatibility)}
 }
+\value{
+a list, a single (LFC) simulation instance
+}
 \description{
 Generates a (simulation) instance, a list of multiple datasets to be processed
 (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are

@@ -13,6 +13,9 @@ draw_data_prb(n = 100, pr = c(0.8, 0.8), R = diag(length(pr)))
 
 \item{R}{matrix, square correlation matrix}
 }
+\value{
+a matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
+}
 \description{
-Sample binary data (single sample)
+This function is wrapper for \code{\link[bindata]{rmvbin}}.
 }

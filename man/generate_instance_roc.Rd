@@ -53,11 +53,14 @@ generate_instance_roc(
 
 \item{job}{ignored (for batchtools compatibility)}
 }
+\value{
+a list, a single (ROC) simulation instance
+}
 \description{
 Generates a (simulation) instance, a list of multiple datasets to be processed
 (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are
 initially generated according to a generative model whereby multiple decision rules (with
-different parameter values) are derived by thresholding multiple biomarkers
+different parameter values) are derived by thresholding multiple biomarkers.
 }
 \details{
 Utilizes same arguments as \link{draw_data_roc} unless mentioned above.
