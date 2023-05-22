@@ -28,11 +28,15 @@ draw_data <- function(n = 200,
   do.call(paste0("draw_data_", method), args)
 }
 
-#' Sample binary data (single sample)
+#' @title Sample binary data (single sample)
+#' 
+#' @description This function is wrapper for \code{\link[bindata]{rmvbin}}.
 #'
 #' @param n integer, sample size
 #' @param pr numeric, vector with marginal success probabilities
 #' @param R matrix, square correlation matrix
+#' 
+#' @return a matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
 #'
 #' @importFrom bindata rmvbin
 #' @export

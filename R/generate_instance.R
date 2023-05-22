@@ -1,4 +1,5 @@
 #' @title Generate data sets under least favorable parameter configurations
+#' 
 #' @description Generates a (simulation) instance, a list of multiple datasets to be processed
 #' (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are 
 #' least-favorable in the sense that the type-I error rate of the subsequently applied 
@@ -18,6 +19,8 @@
 #' @param rhosp numeric
 #' @param cortype character, "equi" or "ak1"
 #' @param ... further arguments
+#' 
+#' @return a list, a single (LFC) simulation instance
 #' 
 #' @details Utilizes same arguments as \link{draw_data_lfc} unless mentioned above.
 #'
@@ -56,7 +59,7 @@ generate_instance_lfc <- function(nrep = 10,
 #' @description Generates a (simulation) instance, a list of multiple datasets to be processed
 #' (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are 
 #' initially generated according to a generative model whereby multiple decision rules (with
-#' different parameter values) are derived by thresholding multiple biomarkers
+#' different parameter values) are derived by thresholding multiple biomarkers.
 #' 
 #' @param data ignored (for batchtools compatibility)
 #' @param job ignored (for batchtools compatibility)
@@ -73,6 +76,8 @@ generate_instance_lfc <- function(nrep = 10,
 #' @param k numeric
 #' @param delta numeric
 #' @param ... further arguments
+#' 
+#' @return a list, a single (ROC) simulation instance
 #' 
 #' @details Utilizes same arguments as \link{draw_data_roc} unless mentioned above.
 #'

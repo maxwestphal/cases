@@ -6,6 +6,14 @@
 \usage{
 lhs \%>\% rhs
 }
+\arguments{
+\item{lhs}{the value to be piped in \code{rhs}}
+
+\item{rhs}{the function to be applied with first argument \code{lhs}}
+}
+\value{
+the result of \code{rhs(lhs, ...)}
+}
 \description{
 See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 }
