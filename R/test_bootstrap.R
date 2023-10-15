@@ -28,8 +28,8 @@ alpha_bootstrap <- function(alpha, alternative, bst){
 
 ## create bootstrap sample of max test statistic
 bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
-  pars$type <- ifelse(is.null(pars$type), "pairs", pars$type)
-  pars$nboot <- ifelse(is.null(pars$nboot), 2000, pars$nboot)
+  pars$type <- get_from_pars("type", "pairs", pars)
+  pars$nboot <- get_from_pars("nboot", 5000, pars) 
   
   stopifnot(pars$type %in% c("pairs", "wild"))
   stopifnot(pars$nboot %% 1 == 0)
@@ -41,15 +41,11 @@ bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
 }
 
 
-## pairs bootstrap
-bs_draw_pairs <- function(data, G=length(data), ng=sapply(data, nrow)){
-  lapply(1:G, function(g) data[[g]][sample(ng[g], replace=TRUE), , drop=FALSE] )
-}
-
-bootstrap_sample_pairs <- function(data, contrast, regu=c(0,0,0), 
-                                   alternative="greater", 
+## pairs bootstrap:
+bootstrap_sample_pairs <- function(data, contrast, regu = c(0,0,0), 
+                                   alternative = "greater", 
                                    analysis = "co-primary", 
-                                   pars=list(nboot=2000)){
+                                   pars = list(nboot=5000)){
   G <- length(data); ng=sapply(data, nrow)
   mu0 <- stats2est(data2stats(data, contrast, regu))
   sapply(1:pars$nboot, function(b){
@@ -58,25 +54,18 @@ bootstrap_sample_pairs <- function(data, contrast, regu=c(0,0,0),
   })
 }
 
-
-
-
-## wild bootstrap
-bs_draw_wild <- function(M, D, 
-                         G=length(M), ng=sapply(M, nrow), m=ncol(M[[1]]),
-                         dist = "Normal", res_tra=0){
-  R <- rm(ng, m, dist); 
-  lapply(1:G, function(g){
-    M[[g]] + ( res_transform(D[[g]], res_tra = res_tra) *R[[g]] )
-  })
+bs_draw_pairs <- function(data, G=length(data), ng=sapply(data, nrow)){
+  lapply(1:G, function(g) data[[g]][sample(ng[g], replace=TRUE), , drop=FALSE] )
 }
 
-bootstrap_sample_wild <- function(data, contrast, regu=c(0,0,0), 
-                                  alternative="greater",
+
+## wild bootstrap:
+bootstrap_sample_wild <- function(data, contrast, regu = c(0,0,0), 
+                                  alternative = "greater",
                                   analysis = "co-primary",
-                                  pars=list(nboot=2000)){
-  pars$dist <- ifelse(is.null(pars$dist), "Normal", pars$dist)
-  pars$res_tra <- ifelse(is.null(pars$res_tra), 0, pars$res_tra)
+                                  pars = list(nboot=5000)){
+  pars$dist <- get_from_pars("dist", "Normal", pars) 
+  pars$res_tra <- get_from_pars("res_tra", 0, pars) 
   
   ## insert pseudo obs
   if(regu[1] != 0){
@@ -85,6 +74,7 @@ bootstrap_sample_wild <- function(data, contrast, regu=c(0,0,0),
       rbind(d, 0, 1)
     })
   }
+  
   G <- length(data); ng=sapply(data, nrow); m <- ncol(data[[1]])
   
   mu0_raw <- stats2est(data2stats(data, contrast=define_contrast("raw"), regu))
@@ -104,8 +94,16 @@ bootstrap_sample_wild <- function(data, contrast, regu=c(0,0,0),
   })
 }
 
+bs_draw_wild <- function(M, D, 
+                         G=length(M), ng=sapply(M, nrow), m=ncol(M[[1]]),
+                         dist = "Normal", res_tra=0){
+  R <- rm(ng, m, dist); 
+  lapply(1:G, function(g){
+    M[[g]] + ( res_transform(D[[g]], res_tra = res_tra) *R[[g]] )
+  })
+}
 
-## random vector for wild bootstrap
+## random vector for wild bootstrap:
 rv <- function(n=100, dist="Normal"){
   if(dist=="Rademacher"){
     return((stats::rbinom(n, 1, 1/2)-0.5)*2)
@@ -117,13 +115,14 @@ rv <- function(n=100, dist="Normal"){
   }
 }
 
-## random matrix of correct dimensions
+## random matrix of correct dimensions:
 rm <- function(ng=c(5, 10), m=4, dist="Normal"){
   lapply(ng, function(n){
     matrix(rv(n, dist=dist), nrow=n, ncol=m, byrow=FALSE)
   })
 }
 
+## residual transformations:
 res_transform <- function(x, h=rep(1/nrow(x), nrow(x)), res_tra=0){
   if(res_tra == 0){
     return(x)

@@ -11,9 +11,9 @@ evaluate_mbeta <- function(data = draw_data(),
   
   stopifnot(transformation == "none")
   
-  nrep <- ifelse(is.null(pars$nrep), 5000, pars$nrep)
-  lfc_pr <- ifelse(is.null(pars$lfc_pr), NA, pars$lfc_pr) 
-  
+  nrep <- get_from_pars("nrep", 5000, pars)
+  lfc_pr <- get_from_pars("nrep", switch(analysis, "co-primary"=1, "full"=0), pars)
+
   G <- length(data)
   m <- ncol(data[[1]])
   type <- attr(contrast(data), "type")
@@ -29,7 +29,8 @@ evaluate_mbeta <- function(data = draw_data(),
   ## credible region:
   qstar <- stats::uniroot(f=eval_cr, interval=c(0, 0.5),
                    moms=moms, pss=pss, type=type, alpha=alpha,
-                   alternative=alternative, analysis=analysis, lfc_pr=lfc_pr)$root
+                   alternative=alternative, analysis=analysis,
+                   lfc_pr=lfc_pr)$root
   crs <- get_cr(moms, pss, type=type, q=qstar, alternative=alternative) 
   
   ## output:
@@ -54,18 +55,18 @@ evaluate_mbeta <- function(data = draw_data(),
 
 
 # Helper functions ----------------------------------------------------------------------------
-eval_cr <- function(q, moms, pss, type, alpha, alternative, analysis, lfc_pr=1){
+eval_cr <- function(q, moms, pss, type, alpha, alternative, analysis, lfc_pr){
   crs <- get_cr(moms, pss, type, q, alternative)
-  coverage(crs, pss, analysis, lfc_pr) - (1-alpha)
+  coverage(crs=crs, pss=pss, analysis=analysis, lfc_pr=lfc_pr) - (1-alpha)
 }
 
 
-coverage <- function(crs, pss, analysis="co-primary", lfc_pr=NA){
+coverage <- function(crs, pss, analysis="co-primary", lfc_pr=1){
   nrep <- nrow(pss[[1]]) 
   m <- ncol(pss[[1]])
   G <- length(pss)
-  H <- switch(analysis, "co-primary" = 1, "full" = G)
-  if(is.na(lfc_pr)){lfc_pr <- switch(analysis, "co-primary" = 1, "full" = 0)}
+  
+  H <- switch(analysis, "co-primary" = 1, "full" = G) 
 
   L <- lapply(crs, function(x) matrix(x$lower, nrow=nrep, ncol=m, byrow=TRUE))
   U <- lapply(crs, function(x) matrix(x$upper, nrow=nrep, ncol=m, byrow=TRUE))
@@ -77,12 +78,27 @@ coverage <- function(crs, pss, analysis="co-primary", lfc_pr=NA){
 
 
 postproc <- function(C, nrep, m, G, lfc_pr=0){
+  stopifnot(lfc_pr >= 0 & lfc_pr <= 1)
   if(lfc_pr == 0){return(C)}
-  ## 'split prior' approach (1-lfc_pr mass on regular dist, lfc_pr mass on 'LFC'):
-  M <- matrix(sample(0:1, nrep*m, replace=TRUE, prob=c(1-lfc_pr, lfc_pr)) * 
-                sample(1:G, nrep*m, replace=TRUE),
-              nrow=nrep, ncol=m, byrow=FALSE) 
-  lapply( 1:G, function(g){(M %in% c(0, g)) * C[[g]]} )
+  
+  ## 'split prior' approach (lfc_pr mass on 'LFC', 1-lfc_pr mass on regular distribution):
+  
+  ## matrix M determines which values will be projected to LFC (i.e. non-coverage of CR)
+  M <- 
+    ## step 1: binary vector either LFC (TRUE, with prob. lfc_pr) or regular parameter (FALSE):
+    base::sample(c(TRUE, FALSE), size=nrep, replace=TRUE, prob=c(lfc_pr, 1-lfc_pr)) %>% 
+    ## step 2: generate values:
+    lapply(function(x) {
+      # case 1: LFC, randomly project all but one component (CR does not cover after proj. by def.):
+      x * sample(1:G, m, replace=TRUE) + 
+        # case 2: original parameter vector, no projections: 
+        (1-x) * rep(0, m)
+    }) %>% 
+    ## step 3: bind all vectors together to rows of M:
+    do.call(rbind, .)
+  
+  ## set values of C to FALSE, depending on values of M (amounts to non-coverage):
+  lapply( 1:G, function(g){(M %in% c(0, g)) * C[[g]]} ) %>% return()
 }
 
 
