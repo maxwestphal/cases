@@ -6,3 +6,11 @@ setattr <- function(x, ..., attrlist=list()){
   }
   return(x)
 }
+
+get_from_pars <- function(name, default, pars=list()){
+  if(is.null(pars[[name]])){
+    return(default)
+  }else{
+    return(pars[[name]])
+  }
+}
