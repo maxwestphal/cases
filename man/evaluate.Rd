@@ -7,7 +7,7 @@
 evaluate(
   data,
   contrast = define_contrast("raw"),
-  benchmark = 0.75,
+  benchmark = 0.5,
   alpha = 0.05,
   alternative = c("two.sided", "greater", "less"),
   adjustment = c("none", "bonferroni", "maxt", "bootstrap", "mbeta"),
