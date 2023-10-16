@@ -34,8 +34,8 @@ complete_results <- function(results, benchmark, alpha, analysis){
   
   results <- lapply(1:length(results), function(g){
     results[[g]] %>% 
-      dplyr::mutate(pval_all = NA,
-                    reject = lower > benchmark[g] | upper < benchmark[g],
+      dplyr::mutate(reject = lower > benchmark[g] | upper < benchmark[g],
+                    pval_all = NA,
                     reject_all = NA)
   }) 
   

@@ -29,7 +29,7 @@ alpha_bootstrap <- function(alpha, alternative, bst){
 ## create bootstrap sample of max test statistic
 bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
   pars$type <- get_from_pars("type", "pairs", pars)
-  pars$nboot <- get_from_pars("nboot", 5000, pars) 
+  pars$nboot <- get_from_pars("nboot", 2000, pars) 
   
   stopifnot(pars$type %in% c("pairs", "wild"))
   stopifnot(pars$nboot %% 1 == 0)
@@ -45,7 +45,7 @@ bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
 bootstrap_sample_pairs <- function(data, contrast, regu = c(0,0,0), 
                                    alternative = "greater", 
                                    analysis = "co-primary", 
-                                   pars = list(nboot=5000)){
+                                   pars = list(nboot=2000)){
   G <- length(data); ng=sapply(data, nrow)
   mu0 <- stats2est(data2stats(data, contrast, regu))
   sapply(1:pars$nboot, function(b){
@@ -63,7 +63,7 @@ bs_draw_pairs <- function(data, G=length(data), ng=sapply(data, nrow)){
 bootstrap_sample_wild <- function(data, contrast, regu = c(0,0,0), 
                                   alternative = "greater",
                                   analysis = "co-primary",
-                                  pars = list(nboot=5000)){
+                                  pars = list(nboot=2000)){
   pars$dist <- get_from_pars("dist", "Normal", pars) 
   pars$res_tra <- get_from_pars("res_tra", 0, pars) 
   
