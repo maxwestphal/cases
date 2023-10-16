@@ -16,7 +16,7 @@
 #' @param analysis character, "co-primary" or "full"
 #' @param regu numeric vector of length 3, specify type of shrinkage.
 #' Alternatively, logical of length one (TRUE := c(2, 1, 1/2), FALSE := c(0, 0, 0))
-#' @param pars further parameters given as named list list(type="pairs", nboot=10000)
+#' @param pars further parameters given as named list list(type="pairs", nboot=2000)
 #' @param ... additional named parameters, can be used instead of (in in conjunction with) \code{pars}
 #'
 #' @return cases_results object, which is a list of analysis results
@@ -31,7 +31,7 @@
 #' 
 #' \strong{"bootstrap"}: Bootstrap approach
 #' - type: type of bootstrap, "pairs" (default) or "wild"
-#' - nboot: number of bootstrap draws (default: 5000)
+#' - nboot: number of bootstrap draws (default: 2000)
 #' - dist: residual distribution for wild bootstrap, "Normal" (default) or "Rademacher"
 #' - res_tra: type of residual transformation for wild boostrap, 0,1,2 or 3 (default: 0 = no transformation)
 #' (for details, see https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf)
