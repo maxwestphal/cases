@@ -99,7 +99,7 @@ bs_draw_wild <- function(M, D,
                          dist = "Normal", res_tra=0){
   R <- rm(ng, m, dist); 
   lapply(1:G, function(g){
-    M[[g]] + ( res_transform(D[[g]], res_tra = res_tra) *R[[g]] )
+    M[[g]] + ( res_transform(D[[g]], res_tra = res_tra) * R[[g]] )
   })
 }
 
