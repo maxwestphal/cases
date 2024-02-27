@@ -79,8 +79,8 @@ visualize <- function(x, ...){
                    legend.text = ggplot2::element_text(face="plain", size=20),
                    legend.title = ggplot2::element_text(face="bold", size=20),
                    axis.text = ggplot2::element_text(size=16)) +
-    ggplot2::scale_y_continuous(nn[1], breaks=seq(round(ysep), 1, 0.1))+
-    ggplot2::scale_x_continuous(nn[2], breaks=seq(round(xsep), 1, 0.1))+
+    ggplot2::scale_y_continuous(nn[2], breaks=seq(round(ysep), 1, 0.1))+
+    ggplot2::scale_x_continuous(nn[1], breaks=seq(round(xsep), 1, 0.1))+
     ## region of interest:
     ggplot2::geom_rect(ggplot2::aes(xmin=sp0, xmax=1, ymin=se0, ymax=1), alpha = 0.25, fill=col_roi, inherit.aes=F) +
     ## plot/axis setup: 

@@ -23,15 +23,19 @@ test_that("evaluate: general test", {
   
   ## run tests
   for(adj in adjustment){
-    evaluate(data,
-             contrast = contrast,
-             benchmark = benchmark, 
-             alpha = alpha, 
-             alternative = alternative, 
-             adjustment = adj,
-             transformation = transformation,
-             analysis = analysis,
-             regu = regu,
-             pars = pars)
+    
+    results <- evaluate(data,
+                        contrast = contrast,
+                        benchmark = benchmark, 
+                        alpha = alpha, 
+                        alternative = alternative, 
+                        adjustment = adj,
+                        transformation = transformation,
+                        analysis = analysis,
+                        regu = regu,
+                        pars = pars)
+    
+    expect_s3_class(results, "cases_results")
+    
   }
 })
