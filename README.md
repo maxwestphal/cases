@@ -6,8 +6,8 @@
 
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![](https://img.shields.io/badge/devel%20version-0.1.3-blue.svg)](https://github.com/maxwestphal/cases)
+public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![](https://img.shields.io/badge/devel%20version-0.1.4-blue.svg)](https://github.com/maxwestphal/cases)
 [![](https://www.r-pkg.org/badges/version/cases?color=orange)](https://cran.r-project.org/package=cases)
 [![R build
 status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)

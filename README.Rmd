@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 # \{cases\}: Stratified Evaluation of Subgroup Classification Accuracy
 
 <!-- badges: start -->
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 `r badger::badge_devel(color="blue")`
 `r badger::badge_cran_release(color="orange")`
 `r badger::badge_github_actions(action="R-CMD-check")`
