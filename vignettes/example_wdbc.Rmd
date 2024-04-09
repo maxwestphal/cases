@@ -183,5 +183,5 @@ visualize(results_pm)
 
 ## References
 
-- [Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).](https://arxiv.org/abs/2105.13469)
+1. Westphal M, Zapf A. Statistical inference for diagnostic test accuracy studies with multiple comparisons. Statistical Methods in Medical Research. 2024;0(0). [doi:10.1177/09622802241236933](https://journals.sagepub.com/doi/full/10.1177/09622802241236933)
 - "Breast Cancer Wisconsin (Diagnostic) Data Set" at the UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/breast+cancer+wisconsin+(diagnostic) 

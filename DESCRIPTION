@@ -1,14 +1,14 @@
 Package: cases
 Type: Package
 Title: Stratified Evaluation of Subgroup Classification Accuracy
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: 
     person(given = "Max",
            family = "Westphal",
            role = c("aut", "cre"),
            email = "dev@maxwestphal.io",
            comment = c(ORCID = "0000-0002-8488-758X"))
-Description: Enables simultaneous statistical inference for the accuracy of multiple classifiers in multiple subgroups (strata). For instance, allows to perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints sensitivity and specificity. (Westphal, Max, and Antonia Zapf. (2021). "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." <arXiv:2105.13469>.)
+Description: Enables simultaneous statistical inference for the accuracy of multiple classifiers in multiple subgroups (strata). For instance, allows to perform multiple comparisons in diagnostic accuracy studies with co-primary endpoints sensitivity and specificity (Westphal M, Zapf A. Statistical inference for diagnostic test accuracy studies with multiple comparisons. Statistical Methods in Medical Research. 2024;0(0). doi:10.1177/09622802241236933).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -34,7 +34,7 @@ Suggests:
     glmnet,
     splitstackshape
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr, rmarkdown
 Config/testthat/edition: 3
 URL: https://github.com/maxwestphal/cases

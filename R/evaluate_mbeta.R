@@ -76,7 +76,6 @@ coverage <- function(crs, pss, analysis="co-primary", lfc_pr=1){
   mean(apply(Reduce("+", postproc(C, nrep, m, G, lfc_pr)), 1, min) >= H)
 }
 
-
 postproc <- function(C, nrep, m, G, lfc_pr=0){
   stopifnot(lfc_pr >= 0 & lfc_pr <= 1)
   if(lfc_pr == 0){return(C)}
