@@ -114,10 +114,6 @@ draw_data_roc <- function(n = 100,
   return(out)
 }
 
-#draw_data_roc()
-#draw_data(pars=list(m=5))
-
-
 draw_subgroups <- function(auc, r, rho, ng, dist){
   
   mu1 <- mu2 <- lambda1 <- lambda2 <- NA

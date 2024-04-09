@@ -1,17 +1,18 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# {cases}: Stratified Evaluation of Subgroup Classification Accuracy
+# {cases} R package: Stratified Evaluation of Subgroup Classification Accuracy
 
 <!-- badges: start -->
 
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![](https://img.shields.io/badge/devel%20version-0.1.4-blue.svg)](https://github.com/maxwestphal/cases)
+[![](https://img.shields.io/badge/devel%20version-0.1.5-blue.svg)](https://github.com/maxwestphal/cases)
 [![](https://www.r-pkg.org/badges/version/cases?color=orange)](https://cran.r-project.org/package=cases)
 [![R build
 status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)
 [![](https://codecov.io/gh/maxwestphal/cases/branch/main/graph/badge.svg)](https://codecov.io/gh/maxwestphal/cases)
+[![](https://img.shields.io/badge/paper-SMMR-gold.svg)](https://journals.sagepub.com/doi/full/10.1177/09622802241236933)
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
 <!-- badges: end -->
 
@@ -28,17 +29,26 @@ A widespread goal in diagnostic accuracy studies a so-called
 significant benefit (compared to some benchmark) in sensitivity **and**
 specificity for **at least one** of the candidate classifiers. The
 package implements different methods for multiplicity adjustment for
-that purpose (e.g. Bonferroni, maxT, pairs bootstrap).
+that purpose (e.g. Bonferroni, maxT, pairs bootstrap). Theoretical
+background and an extensive simulation study is explained in the paper
+by Westphal & Zapf (2024).
 
 ------------------------------------------------------------------------
 
 ## Installation
 
-You can install the development version of {cases} from
+To install the latest stable version from
+[CRAN](https://cran.r-project.org/), use the following R command:
+
+    install.packages("cases")
+
+You can install the latest development version from
 [GitHub](https://github.com/) with:
 
     # install.packages("remotes")
-    remotes::install_github('maxwestphal/cases', build_vignettes = TRUE)
+    remotes::install_github('maxwestphal/cases',
+                            ref='development',
+                            build_vignettes = TRUE)
 
 ------------------------------------------------------------------------
 
@@ -58,6 +68,7 @@ context of biomarker assessment and prediction model evaluation:
 
 ## References
 
--   [Westphal, Max, and Antonia Zapf. “Statistical Inference for
-    Diagnostic Test Accuracy Studies with Multiple Comparisons.” arXiv
-    preprint arXiv:2105.13469 (2021).](https://arxiv.org/abs/2105.13469)
+1.  Westphal M, Zapf A. Statistical inference for diagnostic test
+    accuracy studies with multiple comparisons. Statistical Methods in
+    Medical Research. 2024;0(0).
+    [doi:10.1177/09622802241236933](https://journals.sagepub.com/doi/full/10.1177/09622802241236933)

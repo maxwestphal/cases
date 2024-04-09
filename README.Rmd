@@ -1,7 +1,8 @@
 ---
 title: "README"
 author: "Max Westphal (max.westphal@mevis.fraunhofer.de)"
-output: md_document
+output:
+  md_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -14,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# \{cases\}: Stratified Evaluation of Subgroup Classification Accuracy
+# \{cases\} R package: \newline Stratified Evaluation of Subgroup Classification Accuracy
 
 <!-- badges: start -->
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -22,6 +23,7 @@ knitr::opts_chunk$set(
 `r badger::badge_cran_release(color="orange")`
 `r badger::badge_github_actions(action="R-CMD-check")`
 `r badger::badge_codecov()`
+[![](https://img.shields.io/badge/paper-SMMR-gold.svg)](https://journals.sagepub.com/doi/full/10.1177/09622802241236933)
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
 <!-- badges: end -->
 
@@ -34,18 +36,26 @@ in several subgroups (strata). For instance, it allows to asses the accuracy of 
 A widespread goal in diagnostic accuracy studies a so-called **co-primary** analysis of these two endpoints,
 i.e. to show a significant benefit (compared to some benchmark) in sensitivity **and** specificity
 for **at least one** of the candidate classifiers. The package implements different methods 
-for multiplicity adjustment for that purpose (e.g. Bonferroni, maxT, pairs bootstrap).
+for multiplicity adjustment for that purpose (e.g. Bonferroni, maxT, pairs bootstrap). Theoretical background and an extensive simulation study is explained in the paper by Westphal \& Zapf (2024).
 
 
 ---
 
 ## Installation
 
-You can install the development version of \{cases\} from [GitHub](https://github.com/) with:
+To install the latest stable version from [CRAN](https://cran.r-project.org/), use the following R command:
 
-```{r install, eval=FALSE, echo=TRUE}
+```{r install-cran, eval=FALSE, echo=TRUE}
+install.packages("cases")
+```
+
+You can install the latest development version from [GitHub](https://github.com/) with:
+
+```{r install-github, eval=FALSE, echo=TRUE}
 # install.packages("remotes")
-remotes::install_github('maxwestphal/cases', build_vignettes = TRUE)
+remotes::install_github('maxwestphal/cases',
+                        ref='development',
+                        build_vignettes = TRUE)
 ```
 
 
@@ -72,4 +82,6 @@ vignette(topic="example_wdbc", package = "cases")
 
 ## References
 
-- [Westphal, Max, and Antonia Zapf. "Statistical Inference for Diagnostic Test Accuracy Studies with Multiple Comparisons." arXiv preprint arXiv:2105.13469 (2021).](https://arxiv.org/abs/2105.13469)
+1. Westphal M, Zapf A. Statistical inference for diagnostic test accuracy studies with multiple comparisons. Statistical Methods in Medical Research. 2024;0(0). [doi:10.1177/09622802241236933](https://journals.sagepub.com/doi/full/10.1177/09622802241236933)
+
+
