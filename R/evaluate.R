@@ -10,7 +10,8 @@
 #' @param benchmark value to compare against (RHS), should have same length as data.
 #' @param alpha numeric, significance level (default: 0.05)
 #' @param alternative character, specify alternative hypothesis
-#' @param adjustment character, specify type of statistical adjustment taken to address multiplicity
+#' @param adjustment character, specify type of statistical adjustment taken to address multiplicity.
+#' The default 'none' does not perform any adjustment for multiplicity.
 #' @param transformation character, define transformation to ensure results 
 #' (e.g. point estimates, confidence limits) lie in unit interval ("none" (default) or "logit")
 #' @param analysis character, "co-primary" or "full"

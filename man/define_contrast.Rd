@@ -4,10 +4,10 @@
 \alias{define_contrast}
 \title{Define a contrast (matrix) to specify exact hypothesis system}
 \usage{
-define_contrast(type = c("raw", "dunnett", "tukey"), comparator = NA)
+define_contrast(type = c("raw", "one", "all"), comparator = NA)
 }
 \arguments{
-\item{type}{character, either "Raw", "dunnett" or "tukey")}
+\item{type}{character, either "raw", "one" or "all")}
 
 \item{comparator}{either integer (index of comparator) or character (name of comparator)}
 }
@@ -20,10 +20,10 @@ Define a contrast (matrix) to specify exact hypothesis system
 \details{
 "raw" contrast: compare all candidates against specified benchmark values
 
-"dunnett" (all vs. one) contrast: compare all candidates to a single comparator.
+"one" ('all vs. one' or 'Dunnett') contrast: compare all candidates to a single comparator.
 
-"tukey" (all vs. all) contrast: compare all candidates against each other.
+"all" ('all vs. all' or 'Tukey') contrast: compare all candidates against each other.
 }
 \examples{
-define_contrast("dunnett", 1)
+define_contrast("one", 1)
 }

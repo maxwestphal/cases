@@ -24,12 +24,3 @@ dat2stats <- function(dat, K, regu=c(0,0,0), raw=FALSE){
 }
 
 
-
-# TESTS ---------------------------------------------------------------------------------------
-#data <- draw_data_lfc()
-# contrast = define_contrast("dunnett", 1)
-# contrast(data)
-# data2stats(data, contrast)
-# 
-# data2stats
-# dat <- data[[1]]

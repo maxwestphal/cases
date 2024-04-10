@@ -1,7 +1,7 @@
 Package: cases
 Type: Package
 Title: Stratified Evaluation of Subgroup Classification Accuracy
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: 
     person(given = "Max",
            family = "Westphal",

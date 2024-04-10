@@ -6,8 +6,8 @@
 #' @param values numeric matrix of continuous values to be categorized.
 #' Assume an (n x r) matrix with n observations (subjects) of r continuous values.
 #' @param cutoffs numeric matrix of dimension m x k. Each row of cutoffs defines a split
-#' into k+1 distinct categories. Each row must contain distinct values. In the simplest case,
-#' cutoffs is a single column matrix whereby is row defines a binary split (<=t vs. >t).
+#' into k+1 distinct categories. Each row must contain distinct values. In the simplest case (k=1),
+#' cutoffs is a single column matrix whereby each row defines a binary split (<=t vs. >t).
 #' In this case (k=1), cutoffs can also be a numeric vector.
 #' @param map integer vector of length k with values in 1:r, whereby r = ncol(values).
 #' map_l gives the value which column of values should be categorized by ...
@@ -39,10 +39,6 @@ categorize <- function(values,
   stopifnot(length(map) == nrow(cutoffs))
   if(is.null(names(values))){names(values) <- paste0("v", 1:ncol(values))}
   
-  # if(!all(apply(cutoffs, 1, function(x) length(x) == length(unique(x))))){
-  #   stop("Marker split cannot be based on duplicate cutoffs.")
-  # }
-  
   C <- as.data.frame(matrix(NA, nrow=nrow(values), ncol=nrow(cutoffs)))
   
   for(k in 1:nrow(cutoffs)){
@@ -71,5 +67,6 @@ preproc_labels <- function(labels, cutoffs, map){
       labels <- sapply(1:nrow(cutoffs), function(x) letters[sum(map[1:x] == map[x])])
     }
   }
+  return(labels)
 }
 

@@ -64,6 +64,7 @@ bootstrap_sample_wild <- function(data, contrast, regu = c(0,0,0),
                                   alternative = "greater",
                                   analysis = "co-primary",
                                   pars = list(nboot=2000)){
+  
   pars$dist <- get_from_pars("dist", "Normal", pars) 
   pars$res_tra <- get_from_pars("res_tra", 0, pars) 
   

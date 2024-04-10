@@ -30,7 +30,8 @@ g is the index of subgroups/classes, usually created via \code{\link{compare}}.}
 
 \item{alternative}{character, specify alternative hypothesis}
 
-\item{adjustment}{character, specify type of statistical adjustment taken to address multiplicity}
+\item{adjustment}{character, specify type of statistical adjustment taken to address multiplicity.
+The default 'none' does not perform any adjustment for multiplicity.}
 
 \item{transformation}{character, define transformation to ensure results
 (e.g. point estimates, confidence limits) lie in unit interval ("none" (default) or "logit")}
