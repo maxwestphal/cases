@@ -1,4 +1,4 @@
-## data to moments calculations
+## data to moments calculations:
 data_moments <- function(d) {
   list(n = nrow(d), moments = t(d) %*% d)
 }
@@ -14,7 +14,7 @@ add_moments <- function(pmom, dmom){
 }
 
 
-## calculations based on moments 
+## calculations based on moments:
 mom2est <- function(mom){
   return(diag(mom[[2]]) / mom[[1]])
 }
@@ -45,7 +45,6 @@ data2est <- function(data, regu=c(0,0,0)){
 }
 
 dat2var <- function(dat, regu=c(0,0,0)){
-  #apply(dat, 2, var)/nrow(dat)
   a <- colSums(dat) + regu[2]
   b <- regu[1] + nrow(dat) - a
   (a*b) / ((a+b)^2*(a+b+1))

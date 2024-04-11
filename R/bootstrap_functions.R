@@ -129,6 +129,7 @@ res_transform <- function(x, h=rep(1/nrow(x), nrow(x)), res_tra=0){
     return(x)
   }
   if(res_tra == 1){
+    if(nrow(x) <= ncol(x)){stop("For res_tra == 1, nrow(x) > ncol(x) is required...")}
     return(sqrt(nrow(x)/(nrow(x) - ncol(x))) * x)
   }
   if(res_tra == 2){

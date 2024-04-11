@@ -79,14 +79,6 @@ stat2results <- function(stat, cv=c(-1.96, 1.96), pval_fun=pval_none,
   return(result)
 }
 
-altstr <- function(alternative, benchmark){
-  paste0(switch(alternative,
-                greater = " > ",
-                two.sided = " != ",
-                less = " < "),
-         benchmark)
-}
-
 hypstr <- function(alternative, benchmark){
   paste0(switch(alternative,
                 greater = " <= ",

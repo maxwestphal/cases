@@ -31,11 +31,12 @@
 #' \strong{"maxt"}: maxT adjustment\cr
 #' 
 #' \strong{"bootstrap"}: Bootstrap approach
-#' - type: type of bootstrap, "pairs" (default) or "wild"
 #' - nboot: number of bootstrap draws (default: 2000)
+#' - type: type of bootstrap, "pairs" (default) or "wild"
 #' - dist: residual distribution for wild bootstrap, "Normal" (default) or "Rademacher"
 #' - res_tra: type of residual transformation for wild boostrap, 0,1,2 or 3 (default: 0 = no transformation)
-#' (for details, see https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf)
+#' (for details on res_tra options, see this presentation by
+#' \href{https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf}{James G. MacKinnon (2012)} and references therein)
 #' 
 #' \strong{"mbeta"}: A heuristic Bayesian approach which is based on a multivariate beta-binomial model.
 #' - nrep: number of posterior draws (default: 5000)

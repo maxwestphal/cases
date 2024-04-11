@@ -101,15 +101,24 @@ cv_maxt <-
 
 pval_maxt <- function(R){
   function(tstat, alternative, analysis){
-    if(analysis=="full"){return(NA)}
     m <- length(tstat)
-    switch(alternative,
-           greater = sapply(tstat, function(x) 
-             mvtnorm::pmvnorm(lower = rep(x, m), upper = rep(Inf, m), corr=R)[1]),
-           two.sided = sapply(tstat, function(x) 
-             mvtnorm::pmvnorm(lower = rep(-abs(x), m), upper = rep(abs(x), m), corr=R)[1]),
-           less = sapply(tstat, function(x) 
-             mvtnorm::pmvnorm(lower = rep(-Inf, m), upper = rep(x, m), corr=R)[1]))
+    
+    if(analysis=="full"){
+      pval <- NA
+    }
+    
+    if(analysis == "co-primary"){
+      pval <- switch(alternative,
+                     greater = sapply(tstat, function(x) 
+                       mvtnorm::pmvnorm(lower = rep(x, m), upper = rep(Inf, m), corr=R)[1]),
+                     two.sided = sapply(tstat, function(x) 
+                       mvtnorm::pmvnorm(lower = rep(-abs(x), m), upper = rep(abs(x), m), corr=R)[1]),
+                     less = sapply(tstat, function(x) 
+                       mvtnorm::pmvnorm(lower = rep(-Inf, m), upper = rep(x, m), corr=R)[1]))
+    }
+    
+    return(pval)
+    
   } 
 }
 
