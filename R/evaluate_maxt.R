@@ -1,30 +1,35 @@
-evaluate_maxt <- function(data = draw_data(seed=1337),
+evaluate_maxt <- function(data,
                           contrast = define_contrast("raw"),
                           benchmark = 0.5,
                           alpha = 0.025,
                           alternative = "greater",
                           analysis = "co-primary",
                           transformation = "none",
-                          regu = FALSE,
-                          pars = list()
+                          regu = c(1, 1/2, 0),
+                          pars = list(),
+                          attrs = list()
 ){
   
+  ## inference:
   stats <- data2stats(data, contrast=contrast, regu = regu)
   R <- stats::cov2cor(get_cov(stats, analysis)) 
-  cv <- cv_maxt(R, alpha, alternative)
-  
-  ## output
-  stats %>% 
-    stats2results(
-      alpha = alpha, 
-      cv=cv, pval_fun=pval_maxt(R), benchmark,  
-      alternative, analysis, transformation
-    ) %>% 
-    setattr(
-      n = sapply(stats, function(x) x$n), m=ncol(R), 
-      alpha=alpha, alpha_adj=alpha_maxt(alpha, alternative, R), cv=cv
-    ) %>% 
-    return()
+  critval <- critval_maxt(alpha, alternative, R)
+  alpha_adj <- alpha_maxt(alpha, alternative, R)
+
+  ## output:
+  stats2results(
+    stats = stats,
+    alpha = alpha,
+    alpha_adj = alpha_adj,
+    critval = critval,
+    pval_fun = pval_maxt,
+    pval_args = list(R=R),
+    benchmark = benchmark,  
+    alternative = alternative,
+    analysis = analysis,
+    transformation = transformation,
+    attrs = attrs
+  )
 }
 
 
@@ -74,10 +79,10 @@ active_cov <- function(stats){
 }
 
 #' @importFrom mvtnorm qmvnorm pmvnorm
-cv_maxt <-
-  function(R,
-           alpha = 0.05,
+critval_maxt <-
+  function(alpha = 0.05,
            alternative = "greater",
+           R,
            ...) {
     
     
@@ -99,30 +104,23 @@ cv_maxt <-
     return(cv)
   }
 
-pval_maxt <- function(R){
-  function(tstat, alternative, analysis){
-    m <- length(tstat)
-    
-    if(analysis=="full"){
-      pval <- NA
-    }
-    
-    if(analysis == "co-primary"){
-      pval <- switch(alternative,
-                     greater = sapply(tstat, function(x) 
-                       mvtnorm::pmvnorm(lower = rep(x, m), upper = rep(Inf, m), corr=R)[1]),
-                     two.sided = sapply(tstat, function(x) 
-                       mvtnorm::pmvnorm(lower = rep(-abs(x), m), upper = rep(abs(x), m), corr=R)[1]),
-                     less = sapply(tstat, function(x) 
-                       mvtnorm::pmvnorm(lower = rep(-Inf, m), upper = rep(x, m), corr=R)[1]))
-    }
-    
-    return(pval)
-    
-  } 
+pval_maxt <- function(tstat, R){
+  
+  sapply(tstat, function(x) {
+      1 - mvtnorm::pmvnorm(lower = rep(-Inf, nrow(R)), upper = rep(x, nrow(R)), corr=R)[1]
+    })
+  
 }
 
 alpha_maxt <- function(alpha, alternative, R){ 
-  NA 
+  
+  # critval under independence assumption (Sidak): 
+  critval_0 <- critval_none(1-(1-alpha)^(1/nrow(R)), alternative)
+  
+  1 - mvtnorm::pmvnorm(lower = rep(critval_0[1], nrow(R)),
+                       upper = rep(critval_0[2], nrow(R)),
+                       corr=R)[1]
+  
+  
 }
 

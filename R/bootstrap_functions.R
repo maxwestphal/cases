@@ -1,10 +1,12 @@
-cv_bootstrap <- function(alpha, alternative, bst){
+critval_bootstrap <- function(alpha, alternative, bst){
   if(any(!is.finite(bst))){
     message(paste0("Attention: ", sum(!is.finite(bst)), " bootstrap sample statistics (" ,
                    100*mean(!is.finite(bst)) , "%) are not finite!"))
   }
   
-  cv <- stats::quantile(bst, 1-alpha, na.rm=TRUE)
+  bst_max <- apply(bst, 1, max)
+  
+  cv <- stats::quantile(bst_max, 1-alpha, na.rm=TRUE)
   
   cv <- switch(alternative,
                greater = c(-cv, Inf), 
@@ -15,21 +17,28 @@ cv_bootstrap <- function(alpha, alternative, bst){
   return(unname(cv))
 }
 
-pval_bootstrap <- function(bst){
-  function(tstat, alternative, analysis){
-    sapply(tstat, function(x) mean(bst > x, na.rm=TRUE))  
-  }
+#'@importFrom stats quantile
+alpha_bootstrap <- function(alpha, alternative, bst){ 
+  
+  # critval under independence (random permutation of columns): 
+  cv_0 <- permute_matrix(bst) %>% apply(1, max) %>% stats::quantile(1-alpha) %>% unname()
+
+  mean(apply(bst, 1, max) > cv_0, na.rm=TRUE)
+
 }
 
-alpha_bootstrap <- function(alpha, alternative, bst){ 
-  NA
+
+pval_bootstrap <- function(tstat, bst){
+  sapply(tstat, function(x) mean(bst > x, na.rm=TRUE))  
 }
+
+
 
 
 ## create bootstrap sample of max test statistic
 bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
-  pars$type <- get_from_pars("type", "pairs", pars)
-  pars$nboot <- get_from_pars("nboot", 2000, pars) 
+  pars$type <- get_from_pars(pars, "type", "pairs")
+  pars$nboot <- get_from_pars(pars, "nboot", 2000) 
   
   stopifnot(pars$type %in% c("pairs", "wild"))
   stopifnot(pars$nboot %% 1 == 0)
@@ -45,13 +54,15 @@ bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
 bootstrap_sample_pairs <- function(data, contrast, regu = c(0,0,0), 
                                    alternative = "greater", 
                                    analysis = "co-primary", 
-                                   pars = list(nboot=2000)){
+                                   pars = list()){
+  
   G <- length(data); ng=sapply(data, nrow)
-  mu0 <- stats2est(data2stats(data, contrast, regu))
+  mu0 <- stats2est(data2stats(data, contrast, regu, raw=TRUE))
   sapply(1:pars$nboot, function(b){
-    st <- data2stats(bs_draw_pairs(data, G=G, ng=ng), contrast, regu);
-    combine_tstat(stats2est(st), stats2tstat(st, mu0, alternative), analysis) %>% max()
-  })
+    st <- data2stats(bs_draw_pairs(data, G=G, ng=ng), contrast, regu, raw=TRUE);
+    combine_tstat(stats2est(st), stats2tstat(st, mu0, alternative), analysis) # %>% max()
+  }) %>% 
+    t()
 }
 
 bs_draw_pairs <- function(data, G=length(data), ng=sapply(data, nrow)){
@@ -60,17 +71,22 @@ bs_draw_pairs <- function(data, G=length(data), ng=sapply(data, nrow)){
 
 
 ## wild bootstrap:
-bootstrap_sample_wild <- function(data, contrast, regu = c(0,0,0), 
+bootstrap_sample_wild <- function(data, 
+                                  contrast,
+                                  regu = c(0,0,0), 
                                   alternative = "greater",
                                   analysis = "co-primary",
                                   pars = list(nboot=2000)){
   
-  pars$dist <- get_from_pars("dist", "Normal", pars) 
-  pars$res_tra <- get_from_pars("res_tra", 0, pars) 
+  pars$dist <- get_from_pars(pars, "dist", "Normal") 
+  pars$res_tra <- get_from_pars(pars, "res_tra", 0) 
+  pars$proj_est <- get_from_pars(pars, "proj_est", TRUE) 
   
   ## insert pseudo obs
-  if(regu[1] != 0){
-    warning("regu should be either c(0,0,?) or c(2,1,?). Switched to second case, as regu[1] != 0!")
+  if(regu[1] != 0 ){
+    if(!(regu[1]==2 & regu[2]==1)){
+      warning("regu should be either c(0,0,?) or c(2,1,?). Switched to second case, as regu[1] != 0!")
+    }
     data <- lapply(data, function(d){
       rbind(d, 0, 1)
     })
@@ -78,7 +94,11 @@ bootstrap_sample_wild <- function(data, contrast, regu = c(0,0,0),
   
   G <- length(data); ng=sapply(data, nrow); m <- ncol(data[[1]])
   
-  mu0_raw <- stats2est(data2stats(data, contrast=define_contrast("raw"), regu))
+  mu0_raw <- data2stats(data, 
+                        contrast=define_contrast("raw"),
+                        regu = c(0, 0, 0), # -> data was augmented already, don't regularize "again"
+                        raw=TRUE) %>% 
+    stats2est()
   mu0 <- lapply(mu0_raw, function(x) as.numeric(contrast(data) %*% x))
   
   M <- lapply(1:G, function(g){
@@ -87,12 +107,16 @@ bootstrap_sample_wild <- function(data, contrast, regu = c(0,0,0),
   D <- lapply(1:G, function(g){
     data[[g]] - M[[g]] 
   })
+  
   sapply(1:pars$nboot, function(b){
-    st <- data2stats(bs_draw_wild(M, D, G, ng, m,
-                                  dist=pars$dist, res_tra=pars$res_tra),
-                     contrast, regu, raw=TRUE);
-    combine_tstat(stats2est(st), stats2tstat(st, mu0, alternative), analysis) %>% max()
-  })
+    st <- bs_draw_wild(M, D, G, ng, m,
+                       dist=pars$dist,
+                       res_tra=pars$res_tra) %>% 
+    data2stats(contrast, regu = c(0,0,0), raw=TRUE, proj_est=pars$proj_est);
+    combine_tstat(stats2est(st), stats2tstat(st, mu0, alternative), analysis) 
+  }) %>% 
+    t()
+  
 }
 
 bs_draw_wild <- function(M, D, 

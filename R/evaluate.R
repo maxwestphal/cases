@@ -90,7 +90,7 @@ evaluate <- function(data,
   stopifnot(length(alpha) == 1)
   stopifnot(alpha > 0 & alpha < 1)
   
-  ## check 'pars' argument
+  ## check 'pars' argument:
   stopifnot(is.list(pars))
   
   ## prepare arguments for specific evaluate_xyz function:
@@ -107,12 +107,10 @@ evaluate <- function(data,
       pars = c(list(...), pars)
     )
   
-  ## calculate & label result:
-  do.call(paste0("evaluate_", match.arg(adjustment)), args) %>% 
-    setattr(class = c("list", "cases_results"),
-            names = names(data),
-            contrast = attr(contrast, "contrast"),
-            attrlist = args[-(1:2)]) %>% 
-    return()
+  ## derive attributes which will be added later to result:
+  args$attrs <- derive_attrs(args)
   
+  ## calculate & return results:
+  do.call(paste0("evaluate_", match.arg(adjustment)), args) 
 }
+

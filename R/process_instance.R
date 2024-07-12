@@ -97,8 +97,8 @@ process1 <- function(data,
     tau_max = max(tau),
     tau_med = stats::median(tau),
     tau_min = min(tau),
-    cv1 = attr(res, "cv")[1],
-    cv2 = attr(res, "cv")[2],
+    cv1 = attr(res, "critval")[1],
+    cv2 = attr(res, "critval")[2],
     fp=fp
   ) %>% 
     cbind(rej)

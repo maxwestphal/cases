@@ -1,18 +1,20 @@
-evaluate_mbeta <- function(data = draw_data(),
+evaluate_mbeta <- function(data,
                            contrast = define_contrast("raw"),
                            benchmark = 0.5,
                            alpha = 0.05,
                            alternative = "greater",
                            analysis = "co-primary",
                            transformation = "none",
-                           regu = FALSE,
-                           pars = list()
+                           regu = c(1, 1/2, 0),
+                           pars = list(),
+                           attrs = list()
 ) {
   
+  ## inference:
   stopifnot(transformation == "none")
   
-  nrep <- get_from_pars("nrep", 5000, pars)
-  lfc_pr <- get_from_pars("nrep", switch(analysis, "co-primary"=1, "full"=0), pars)
+  nrep <- get_from_pars(pars, "nrep", 5000)
+  lfc_pr <- get_from_pars(pars, "nrep", switch(analysis, "co-primary"=1, "full"=0))
 
   G <- length(data)
   m <- ncol(data[[1]])
@@ -41,14 +43,13 @@ evaluate_mbeta <- function(data = draw_data(),
       estimate = stats[[g]]$est,
       lower = crs[[g]]$lower,
       upper = crs[[g]]$upper,
+      tstat = NA,
       pval = NA
     )
   }) %>% 
-    complete_results(benchmark, alpha, analysis) %>% 
-    setattr(
-      n = sapply(data, nrow), m=m, 
-      alpha=alpha, alpha_adj=qstar, cv=NA,
-      class = c("list", "cases_results")
+    complete_results(benchmark) %>% 
+    set_attrs(
+      attrs = attrs
     ) %>% 
     return()
 }

@@ -1,29 +1,43 @@
 #' @importFrom boot boot
-evaluate_bootstrap <- function(data = draw_data(seed=1337),
-                          contrast = define_contrast("raw"),
-                          benchmark = 0.5,
-                          alpha = 0.05,
-                          alternative = "greater",
-                          analysis = "co-primary",
-                          transformation = "none",
-                          regu = FALSE,
-                          pars = list()
+evaluate_bootstrap <- function(data,
+                               contrast = define_contrast("raw"),
+                               benchmark = 0.5,
+                               alpha = 0.05,
+                               alternative = "greater",
+                               analysis = "co-primary",
+                               transformation = "none",
+                               regu = c(1, 1/2, 0),
+                               pars = list(),
+                               attrs = list()
 ){
-
+  
+  ## inference:
   stats <- data2stats(data, contrast=contrast, regu = regu)
   bst <- bootstrap_sample(data, contrast, regu, alternative, analysis, pars) 
-  cv <- cv_bootstrap(alpha, alternative, bst)
+  critval <- critval_bootstrap(alpha, alternative, bst)
+  alpha_adj <- alpha_bootstrap(alpha, alternative, bst)
   
-  ## output
-  out <- stats2results(
-    stats=stats, alpha = alpha, cv=cv, pval_fun=pval_bootstrap(bst), benchmark,  
-    alternative, analysis, transformation
+  ## output:
+  stats2results(
+    stats = stats,
+    alpha = alpha,
+    alpha_adj = alpha_adj,
+    critval = critval,
+    pval_fun = pval_bootstrap,
+    pval_args = list(bst=bst),
+    benchmark = benchmark,  
+    alternative = alternative,
+    analysis = analysis,
+    transformation = transformation,
+    attrs = attrs
   )
   
-  out %>%
-    setattr(
-      n = sapply(stats, function(x) x$n), m=nrow(out[[1]]), 
-      alpha=alpha, alpha_adj=alpha_bootstrap(alpha, alternative, bst), cv=cv
-    ) %>% 
-    return()
+}
+
+permute_matrix <- function(x, margin=2){
+  
+  apply(x, margin, function(xj){
+    xj[sample(length(xj))]
+  })
+  
 }

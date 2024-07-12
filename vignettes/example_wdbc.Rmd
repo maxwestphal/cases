@@ -38,7 +38,7 @@ library(cases)
 We utilize the breast cancer wisconsin (diagnostic) data set.
 
 ```{r}
-?data_wdbc
+#?data_wdbc
 data <- data_wdbc
 ```
 

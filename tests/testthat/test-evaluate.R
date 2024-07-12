@@ -19,7 +19,7 @@ test_that("evaluate: general test", {
     adjustment = c("none", "bonferroni", "maxt", "bootstrap", "mbeta"),
     transformation = c("none", "logit"),
     analysis = c("full", "co-primary"),
-    regu = c(FALSE, TRUE),
+    regu = c("0_0_0", "1_0.5_0.25"),
     pars = list(list(nboot = 100)),
     stringsAsFactors = FALSE
   ) %>% 
@@ -30,7 +30,7 @@ test_that("evaluate: general test", {
     adjustment = c("bootstrap"),
     transformation = c("none", "logit"),
     analysis = c("full", "co-primary"),
-    regu = c(FALSE, TRUE),
+    regu = "2_1_0.5",
     pars = expand.grid(nboot = 100,
                        type = "wild",
                        dist = c("Normal", "Rademacher"),
@@ -61,7 +61,10 @@ test_that("evaluate: general test", {
                         regu = S$regu[i],
                         pars = S$pars[[i]])
     
+    # check if result is of appropriate class:
     expect_s3_class(results, "cases_results")
+    
+    # check
     
     if(i==1){
       print(results)

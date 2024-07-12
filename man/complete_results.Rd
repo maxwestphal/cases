@@ -4,16 +4,12 @@
 \alias{complete_results}
 \title{Complete evaluation results}
 \usage{
-complete_results(results, benchmark, alpha, analysis)
+complete_results(results, benchmark)
 }
 \arguments{
 \item{results}{"cases_results" object, i.e. result of \link{evaluate}}
 
 \item{benchmark}{numeric, vector of benchmark values}
-
-\item{alpha}{numeric, significance level}
-
-\item{analysis}{character, either "co-primary" or "full"}
 }
 \value{
 "cases_results" object

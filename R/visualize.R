@@ -51,7 +51,7 @@ visualize <- function(x, ...){
     dplyr::arrange(reject_all)
   
    
-  benchmark <- attr(x, "benchmark")
+  benchmark <- attr(x, "call")$benchmark
   sp0 <- benchmark[1]
   se0 <- benchmark[2]
   

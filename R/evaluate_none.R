@@ -1,37 +1,42 @@
-evaluate_none <- function(data = draw_data(seed=1337),
-                     contrast = define_contrast("raw"),
-                     benchmark = 0.5,
-                     alpha = 0.05,
-                     alternative = "greater",
-                     analysis = "co-primary",
-                     transformation = "none",
-                     regu = FALSE,
-                     pars = list()
-){  
-  stats <- data2stats(data, contrast=contrast, regu = regu)
-  cv <- cv_none(alpha, alternative)
+evaluate_none <- function(data,
+                          contrast = define_contrast("raw"),
+                          benchmark = 0.5,
+                          alpha = 0.05,
+                          alternative = "greater",
+                          analysis = "co-primary",
+                          transformation = "none",
+                          regu = c(1, 1/2, 0),
+                          pars = list(),
+                          attrs = list()){  
   
-  ## output
-  stats %>% 
-    stats2results(
-      alpha = alpha, 
-      cv=cv, pval_fun=pval_none, benchmark,  
-      alternative, analysis, transformation
-    ) %>% 
-    setattr(
-      n = sapply(stats, function(x) x$n), m=ncol(data[[1]]), 
-      alpha=alpha, alpha_adj=alpha, cv=cv
-    ) %>% 
-    return()
+  ## inference:
+  stats <- data2stats(data, contrast=contrast, regu = regu)
+  critval <- critval_none(alpha, alternative)
+  alpha_adj <- alpha
+  
+  ## output:
+  stats2results(
+    stats = stats,
+    alpha = alpha,
+    alpha_adj = alpha_adj,
+    critval = critval,
+    pval_fun = pval_none,
+    pval_args = list(),
+    benchmark = benchmark,  
+    alternative = alternative,
+    analysis = analysis,
+    transformation = transformation,
+    attrs = attrs
+  )
 }
 
 
 
 # Helper functions ----------------------------------------------------------------------------
 
-cv_none <- function(alpha = 0.05,
-                   alternative = "two.sided",
-                   ...) {
+critval_none <- function(alpha = 0.05,
+                    alternative = "two.sided",
+                    ...) {
   c(switch(
     alternative,
     two.sided = stats::qnorm(alpha / 2),
@@ -47,13 +52,10 @@ cv_none <- function(alpha = 0.05,
   )
 }
 
-pval_none <- function(tstat, alternative = "two.sided", analysis){
-  switch(
-    alternative,
-    two.sided = stats::pnorm(abs(tstat), lower.tail = FALSE), 
-    less = stats::pnorm(-tstat, lower.tail = FALSE),
-    greater = stats::pnorm(tstat, lower.tail = FALSE)
-  )
+pval_none <- function(tstat){
+  
+  stats::pnorm(tstat, lower.tail = FALSE)
+  
 }
 
 
