@@ -44,5 +44,5 @@ critval_bonferroni <- function(alpha, m, alternative){
 }
 
 pval_bonferroni <- function(tstat, m){
-  m*pval_none(tstat)
+  (m*pval_none(tstat)) %>% pmin(1)
 }

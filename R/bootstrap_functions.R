@@ -1,10 +1,8 @@
-critval_bootstrap <- function(alpha, alternative, bst){
-  if(any(!is.finite(bst))){
-    message(paste0("Attention: ", sum(!is.finite(bst)), " bootstrap sample statistics (" ,
-                   100*mean(!is.finite(bst)) , "%) are not finite!"))
+critval_bootstrap <- function(alpha, alternative, bst_max){
+  if(any(!is.finite(bst_max))){
+    message(paste0("Attention: ", sum(!is.finite(bst_max)), " bootstrap sample statistics (" ,
+                   100*mean(!is.finite(bst_max)) , "%) are not finite!"))
   }
-  
-  bst_max <- apply(bst, 1, max)
   
   cv <- stats::quantile(bst_max, 1-alpha, na.rm=TRUE)
   
@@ -27,15 +25,23 @@ alpha_bootstrap <- function(alpha, alternative, bst){
 
 }
 
+permute_matrix <- function(x, margin=2){
+  
+  apply(x, margin, function(xj){
+    xj[sample(length(xj))]
+  })
+  
+}
 
-pval_bootstrap <- function(tstat, bst){
-  sapply(tstat, function(x) mean(bst > x, na.rm=TRUE))  
+
+pval_bootstrap <- function(tstat, bst_max){
+  sapply(tstat, function(x) mean(bst_max > x, na.rm=TRUE))  
 }
 
 
 
 
-## create bootstrap sample of max test statistic
+## create bootstrap sample:
 bootstrap_sample <- function(data, contrast, regu, alternative, analysis, pars){
   pars$type <- get_from_pars(pars, "type", "pairs")
   pars$nboot <- get_from_pars(pars, "nboot", 2000) 
@@ -60,7 +66,7 @@ bootstrap_sample_pairs <- function(data, contrast, regu = c(0,0,0),
   mu0 <- stats2est(data2stats(data, contrast, regu, raw=TRUE))
   sapply(1:pars$nboot, function(b){
     st <- data2stats(bs_draw_pairs(data, G=G, ng=ng), contrast, regu, raw=TRUE);
-    combine_tstat(stats2est(st), stats2tstat(st, mu0, alternative), analysis) # %>% max()
+    combine_tstat(stats2est(st), stats2tstat(st, mu0, alternative), analysis) 
   }) %>% 
     t()
 }
