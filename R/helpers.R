@@ -1,21 +1,21 @@
-set_attrs <- function(x, ..., attrs=list()){
+set_attrs <- function(x, ..., attrs = list()) {
   a <- c(list(...), attrs)
   n <- names(a)
-  for(i in 1:length(a)){
+  for (i in 1:length(a)) {
     attr(x, n[i]) <- a[[i]]
   }
   return(x)
 }
 
-get_from_pars <- function(pars=list(), name, default){
-  if(is.null(pars[[name]])){
+get_from_pars <- function(pars = list(), name, default) {
+  if (is.null(pars[[name]])) {
     return(default)
-  }else{
+  } else {
     return(pars[[name]])
   }
 }
 
-derive_attrs <- function(args){
+derive_attrs <- function(args) {
   list(
     class = c("list", "cases_results"),
     names = names(args$data),
@@ -31,7 +31,7 @@ derive_attrs <- function(args){
   )
 }
 
-update_attrs <- function(attrs = list(), ...){
+update_attrs <- function(attrs = list(), ...) {
   attrs_new <- list(...)
   attrs[names(attrs_new)] <- attrs_new
   attrs

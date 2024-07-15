@@ -7,8 +7,8 @@
 #' @param method character, either "roc", "lfc" (multiple subgroups) or "prob" (no subgroups)
 #' @param pars list, containing further named parameters passed to \code{\link{draw_data_roc}},
 #'  \code{\link{draw_data_lfc}}
-#' @param ... further named parameters passed 
-#' 
+#' @param ... further named parameters passed
+#'
 #' @return generated binary data (possibly stratified for subgroups)
 #' @export
 #'
@@ -21,21 +21,21 @@ draw_data <- function(n = 200,
                       pars = list(),
                       ...) {
   method <- match.arg(method)
-  
+
   ng <- sample_ng(n = n, prev = prev, random = random)
-  
+
   args <- c(list(ng = ng, m = m), pars, list(...))
   do.call(paste0("draw_data_", method), args)
 }
 
 #' @title Sample binary data (single sample)
-#' 
+#'
 #' @description This function is wrapper for \code{\link[bindata]{rmvbin}}.
 #'
 #' @param n integer, sample size
 #' @param pr numeric, vector with marginal success probabilities
 #' @param R matrix, square correlation matrix
-#' 
+#'
 #' @return a matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
 #'
 #' @importFrom bindata rmvbin
@@ -67,11 +67,10 @@ sample_ng <- function(n = 100,
         size = n,
         prob = prev
       ))
-    } else{
+    } else {
       ng <- round(n * prev, 0)
       ng[1] <- n - sum(ng[-1])
     }
   }
   return(ng)
 }
-

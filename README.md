@@ -7,7 +7,7 @@
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![](https://img.shields.io/badge/devel%20version-0.1.5-blue.svg)](https://github.com/maxwestphal/cases)
+[![](https://img.shields.io/badge/devel%20version-0.1.8-blue.svg)](https://github.com/maxwestphal/cases)
 [![](https://www.r-pkg.org/badges/version/cases?color=orange)](https://cran.r-project.org/package=cases)
 [![R build
 status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)
@@ -46,9 +46,10 @@ You can install the latest development version from
 [GitHub](https://github.com/) with:
 
     # install.packages("remotes")
-    remotes::install_github('maxwestphal/cases',
-                            ref='development',
-                            build_vignettes = TRUE)
+    remotes::install_github("maxwestphal/cases",
+      ref = "development",
+      build_vignettes = TRUE
+    )
 
 ------------------------------------------------------------------------
 
@@ -57,12 +58,12 @@ You can install the latest development version from
 A vignette which explains the basic functionality of the {cases} package
 can be displayed as follows:
 
-    vignette(topic="package_overview", package = "cases")
+    vignette(topic = "package_overview", package = "cases")
 
 The following vignette shows an exemplary usage of the package in the
 context of biomarker assessment and prediction model evaluation:
 
-    vignette(topic="example_wdbc", package = "cases")
+    vignette(topic = "example_wdbc", package = "cases")
 
 ------------------------------------------------------------------------
 
