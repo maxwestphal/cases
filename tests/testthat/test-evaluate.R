@@ -44,17 +44,17 @@ test_that("evaluate: general test", {
   S1 <- expand.grid(
     alternative = c("greater", "two.sided"),
     adjustment = c("none", "bonferroni", "maxt", "bootstrap", "mbeta"),
-    transformation = c("none", "logit"),
+    transformation = c("none", "logit", "arcsin"),
     regu = c("0_0_0", "1_0.5_0.25"),
     pars = list(list(nboot = 100)),
     stringsAsFactors = FALSE
   ) %>% 
-    dplyr::filter(!(adjustment=="mbeta" & transformation=="logit"))
+    dplyr::filter(!(adjustment=="mbeta" & transformation!="none"))
   
   S2 <- expand.grid(
     alternative = c("greater", "two.sided"),
     adjustment = c("bootstrap"),
-    transformation = c("none", "logit"),
+    transformation = c("none", "logit", "arcsin"),
     regu = "2_1_0.5",
     pars = expand.grid(nboot = 100,
                        type = "wild",
