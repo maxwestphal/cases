@@ -21,7 +21,7 @@ evaluate_none <- function(data,
     alpha_adj = alpha_adj,
     critval = critval,
     pval_fun = pval_none,
-    pval_args = list(),
+    pval_args = list(alternative=alternative),
     benchmark = benchmark,  
     alternative = alternative,
     analysis = analysis,
@@ -37,24 +37,25 @@ evaluate_none <- function(data,
 critval_none <- function(alpha = 0.05,
                     alternative = "two.sided",
                     ...) {
-  c(switch(
-    alternative,
-    two.sided = stats::qnorm(alpha / 2),
-    less = -Inf,
-    greater = stats::qnorm(alpha)
-  ),
-  switch(
-    alternative,
-    two.sided = stats::qnorm(1 - alpha / 2),
-    less = stats::qnorm(1 - alpha),
-    greater = Inf
-  )
+  c(
+    switch(
+      alternative,
+      two.sided = stats::qnorm(alpha / 2),
+      less = -Inf,
+      greater = stats::qnorm(alpha)
+    ),
+    switch(
+      alternative,
+      two.sided = stats::qnorm(1 - alpha / 2),
+      less = stats::qnorm(1 - alpha),
+      greater = Inf
+    )
   )
 }
 
-pval_none <- function(tstat){
+pval_none <- function(tstat, alternative = "two.sided"){
   
-  stats::pnorm(tstat, lower.tail = FALSE)
+  ifelse(alternative == "two.sided", 2, 1)*stats::pnorm(tstat, lower.tail = FALSE)
   
 }
 

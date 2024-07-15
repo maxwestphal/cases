@@ -90,8 +90,8 @@ stat2results <- function(stat,
       parameter = stat$names,
       hypothesis = hypstr(alternative, benchmark),
       estimate = stat$est,
-      lower = tf$inv(est.t + critval[1] * se.t), 
-      upper = tf$inv(est.t + critval[2] * se.t),
+      lower = tf$est_inv(est.t + critval[1] * se.t), 
+      upper = tf$est_inv(est.t + critval[2] * se.t),
       tstat = tstat,
       pval = do.call(pval_fun, args=c(list(tstat=tstat), pval_args))
     ) 

@@ -23,7 +23,7 @@ evaluate_maxt <- function(data,
     alpha_adj = alpha_adj,
     critval = critval,
     pval_fun = pval_maxt,
-    pval_args = list(R=R),
+    pval_args = list(alternative=alternative, R=R),
     benchmark = benchmark,  
     alternative = alternative,
     analysis = analysis,
@@ -104,11 +104,12 @@ critval_maxt <-
     return(cv)
   }
 
-pval_maxt <- function(tstat, R){
+pval_maxt <- function(tstat, alternative, R){
   
   sapply(tstat, function(x) {
-      1 - mvtnorm::pmvnorm(lower = rep(-Inf, nrow(R)), upper = rep(x, nrow(R)), corr=R)[1]
-    })
+    l <- ifelse(alternative == "two.sided", -x, -Inf)
+    1 - mvtnorm::pmvnorm(lower = rep(l, nrow(R)), upper = rep(x, nrow(R)), corr=R)[1]
+  })
   
 }
 

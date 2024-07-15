@@ -35,7 +35,7 @@ permute_matrix <- function(x, margin=2){
 
 
 pval_bootstrap <- function(tstat, bst_max){
-  sapply(tstat, function(x) mean(bst_max > x, na.rm=TRUE))  
+    sapply(tstat, function(x) mean(bst_max > x, na.rm=TRUE))  
 }
 
 

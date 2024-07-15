@@ -54,7 +54,7 @@ test_that("evaluate: general test", {
       print(S[i,])
     }
     
-    set.seed(2345)
+    set.seed(123)
     results <- evaluate(data,
                         contrast = contrast,
                         benchmark = benchmark, 
@@ -70,20 +70,20 @@ test_that("evaluate: general test", {
     expect_s3_class(results, "cases_results")
     
     # check results for consistency:
-    checks <- lapply(1:length(results), function(r){
+    checks <- lapply(1:length(results), function(g){
       r <- results[[g]];
       data.frame(
         ci_ordering = (r$estimate > r$lower) & (r$estimate < r$upper),
         pval_bounded = all(is.na(r$pval)) | ((r$pval >= 0) & (r$pval <= 1)),
         reject_vs_ci = ((r$lower > benchmark[g]) | (r$upper < benchmark[g])) == r$reject, 
-        reject_vs_pval = all(is.na(r$pval)) | ((r$pval < alpha) == r$reject),
+        reject_vs_pval = all(is.na(r$pval)) | ((r$pval <= alpha) == r$reject),
         tstat_vs_pval = all(is.na(r$pval)) | ( sapply(seq_along(r$tstat), \(j){
           all( r$pval[j] >= r$pval[r$tstat > r$tstat[j]] ) }) )
       ) %>% 
         magrittr::set_rownames(rownames(r))
     })
     names(checks) <- names(results)
-    checks$names_correct <- names(results) == names(data)
+    checks$names_correct <- all(names(results) == names(data))
     alpha_adj <- attr(results, "alpha_adj")
     checks$alpha_adj_plausible <- is.na(alpha_adj) | (alpha_adj <= alpha)
     

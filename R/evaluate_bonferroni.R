@@ -29,7 +29,7 @@ evaluate_bonferroni <- function(data,
     alpha_adj = alpha_adj,
     critval = critval,
     pval_fun = pval_bonferroni,
-    pval_args = list(m=m),
+    pval_args = list(alternative=alternative, m=m),
     benchmark = benchmark,  
     alternative = alternative,
     analysis = analysis,
@@ -43,6 +43,6 @@ critval_bonferroni <- function(alpha, m, alternative){
   critval_none(alpha/m, alternative)
 }
 
-pval_bonferroni <- function(tstat, m){
-  (m*pval_none(tstat)) %>% pmin(1)
+pval_bonferroni <- function(tstat, alternative, m){
+  (m*pval_none(tstat, alternative)) %>% pmin(1)
 }
