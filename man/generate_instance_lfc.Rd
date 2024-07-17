@@ -22,43 +22,45 @@ generate_instance_lfc(
 )
 }
 \arguments{
-\item{nrep}{integer, number of instances}
+\item{nrep}{(numeric) \cr integer, number of instances}
 
-\item{n}{integer, total sample size}
+\item{n}{(numeric) \cr integer, total sample size}
 
-\item{prev}{numeric, disease prevalence}
+\item{prev}{(numeric) \cr disease prevalence}
 
-\item{random}{logical, fixed prevalence (FALSE) or simple random sampling (TRUE)}
+\item{random}{(logical) \cr fixed prevalence (FALSE) or simple random sampling (TRUE)}
 
-\item{m}{integer, number of candidates}
+\item{m}{(numeric) \cr integer, number of candidates}
 
-\item{se}{numeric}
+\item{se}{(numeric) \cr sensitivity}
 
-\item{sp}{numeric}
+\item{sp}{(numeric) \cr specificity}
 
-\item{L}{numeric}
+\item{L}{(numeric) \cr worst alternative is computed under side condition Acc <= L}
 
-\item{rhose}{numeric}
+\item{rhose}{(numeric) \cr correlation parameter for sensitivity}
 
-\item{rhosp}{numeric}
+\item{rhosp}{(numeric) \cr correlation parameter for specificity}
 
-\item{cortype}{character, "equi" or "ak1"}
+\item{cortype}{(character) \cr  correlation type ("equi" or "ak1")}
 
-\item{...}{further arguments}
+\item{...}{(any) \cr further (named) arguments}
 
-\item{data}{ignored (for batchtools compatibility)}
+\item{data}{(NULL) \cr ignored (for batchtools compatibility)}
 
-\item{job}{ignored (for batchtools compatibility)}
+\item{job}{(NULL) \cr ignored (for batchtools compatibility)}
 }
 \value{
-a list, a single (LFC) simulation instance
+(list) \cr a single (LFC) simulation instance of length \code{nrep}
 }
 \description{
 Generates a (simulation) instance, a list of multiple datasets to be processed
 (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are
 least-favorable in the sense that the type-I error rate of the subsequently applied
 multiple test procedures is maximized.
+
+\strong{This function is only needed for simulation via batchtools, not relevant in interactive use!}
 }
 \details{
-Utilizes same arguments as \link{draw_data_lfc} unless mentioned above.
+Utilizes same arguments as \link{draw_data_lfc} unless mentioned otherwise above.
 }

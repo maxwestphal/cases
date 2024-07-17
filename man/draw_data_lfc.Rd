@@ -20,33 +20,34 @@ draw_data_lfc(
 )
 }
 \arguments{
-\item{n}{integer, total sample size}
+\item{n}{(numeric) \cr integer, total sample size}
 
-\item{prev}{numeric, disease and healthy prevalence (adds up to 1)}
+\item{prev}{(numeric) \cr disease and healthy prevalence (length 2, adds up to 1)}
 
-\item{random}{logical, random sampling (TRUE) or fixed prevalence (FALSE)}
+\item{random}{(logical) \cr random sampling (TRUE) or fixed prevalence (FALSE)}
 
-\item{m}{integer, number of models}
+\item{m}{(numeric) \cr integer, number of models}
 
-\item{se}{numeric, sensitivity (length 1)}
+\item{se}{(numeric) \cr sensitivity (length 1)}
 
-\item{sp}{numeric, specificity (length 1)}
+\item{sp}{(numeric) \cr specificity (length 1)}
 
-\item{B}{integer, between 1 and m, specifies how many sensitivity values are projected to 1}
+\item{B}{(numeric) \cr integer, between 1 and m, specifies how many sensitivity values are projected to 1}
 
-\item{L}{numeric, worst alternative is computed under side condition Acc <= L
+\item{L}{(numeric) \cr worst alternative is computed under side condition Acc <= L
 (default value L=1 corresponds to true LFC where values are projected to 1)}
 
-\item{Rse}{matrix, correlation matrix for empirical sensitivities (m x m)}
+\item{Rse}{(matrix) \cr correlation matrix for empirical sensitivities (m x m)}
 
-\item{Rsp}{matrix, correlation matrix for empirical specificities (m x m)}
+\item{Rsp}{(maxtrix) \cr correlation matrix for empirical specificities (m x m)}
 
-\item{modnames}{character, model names (length m)}
+\item{modnames}{(modnames) \cr character, model names (length m)}
 
-\item{...}{further arguments (currently unused)}
+\item{...}{(any) \cr further arguments (currently unused)}
 }
 \value{
-Generated binary dataset
+(list) \cr list of matrices including generated binary datasets
+(1: correct prediction, 0: incorrect prediction) for each subgroup (specificity, sensitivity)
 }
 \description{
 Generate binary data (LFC model)

@@ -1,7 +1,7 @@
 Package: cases
 Type: Package
 Title: Stratified Evaluation of Subgroup Classification Accuracy
-Version: 0.1.9
+Version: 0.2.0
 Authors@R: 
     person(given = "Max",
            family = "Westphal",
@@ -27,14 +27,13 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
-    readr,
     rmarkdown,
     covr,
     badger,
     glmnet,
     splitstackshape
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr, rmarkdown
 Config/testthat/edition: 3
 URL: https://github.com/maxwestphal/cases, https://maxwestphal.github.io/cases/

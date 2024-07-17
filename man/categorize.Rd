@@ -12,21 +12,21 @@ categorize(
 )
 }
 \arguments{
-\item{values}{numeric matrix of continuous values to be categorized.
+\item{values}{(matrix) \cr numeric matrix of continuous values to be categorized.
 Assume an (n x r) matrix with n observations (subjects) of r continuous values.}
 
-\item{cutoffs}{numeric matrix of dimension m x k. Each row of cutoffs defines a split
+\item{cutoffs}{(numeric | matrix) \cr numeric matrix of dimension m x k. Each row of cutoffs defines a split
 into k+1 distinct categories. Each row must contain distinct values. In the simplest case (k=1),
 cutoffs is a single column matrix whereby each row defines a binary split (<=t vs. >t).
 In this case (k=1), cutoffs can also be a numeric vector.}
 
-\item{map}{integer vector of length k with values in 1:r, whereby r = ncol(values).
+\item{map}{(numeric) \cr integer vector of length k with values in 1:r, whereby r = ncol(values).
 map_l gives the value which column of values should be categorized by ...}
 
-\item{labels}{character of length m (= number of prediction r)}
+\item{labels}{(character) \cr character of length m (= number of prediction r)}
 }
 \value{
-numeric (n x k) matrix with categorical outcomes after categorizing.
+(matrix) \cr numeric (n x k) matrix with categorical outcomes after categorizing.
 }
 \description{
 This function allows to split continuous values, e.g. (risk) scores or (bio)markers,

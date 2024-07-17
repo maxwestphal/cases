@@ -3,17 +3,17 @@
 #' This function allows to split continuous values, e.g. (risk) scores or (bio)markers,
 #' into two or more categories by specifying one or more cutoff values.
 #'
-#' @param values numeric matrix of continuous values to be categorized.
+#' @param values (matrix) \cr numeric matrix of continuous values to be categorized.
 #' Assume an (n x r) matrix with n observations (subjects) of r continuous values.
-#' @param cutoffs numeric matrix of dimension m x k. Each row of cutoffs defines a split
+#' @param cutoffs (numeric | matrix) \cr numeric matrix of dimension m x k. Each row of cutoffs defines a split
 #' into k+1 distinct categories. Each row must contain distinct values. In the simplest case (k=1),
 #' cutoffs is a single column matrix whereby each row defines a binary split (<=t vs. >t).
 #' In this case (k=1), cutoffs can also be a numeric vector.
-#' @param map integer vector of length k with values in 1:r, whereby r = ncol(values).
+#' @param map (numeric) \cr integer vector of length k with values in 1:r, whereby r = ncol(values).
 #' map_l gives the value which column of values should be categorized by ...
-#' @param labels character of length m (= number of prediction r)
+#' @param labels (character) \cr character of length m (= number of prediction r)
 #'
-#' @return numeric (n x k) matrix with categorical outcomes after categorizing.
+#' @return (matrix) \cr numeric (n x k) matrix with categorical outcomes after categorizing.
 #' @export
 #'
 #' @examples

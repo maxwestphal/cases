@@ -1,9 +1,15 @@
-#' Visualize evaluation results
+#' @title Visualize evaluation results
 #'
-#' @param x, a \code{cases_results} object, see \code{\link{evaluate}}
-#' @param ... further arguments (currently ignored)
+#' @description
+#' \strong{Currently, this implementation is only intended for situations with ...}
 #'
-#' @details +++ early development version (only alternative = "greater" is supported) +++
+#' - two groups (e.g. healthy (<-> specificity) and diseased (<-> sensitivity))
+#' - alternative = "greater"
+#' - contrast = define_contrast("raw)
+#'
+#' @param x \code{cases_results} \cr produced by \code{\link{evaluate}}
+#' @param ... \code{any} \cr further arguments (currently ignored)
+#'
 #'
 #' @return a ggplot
 #' @export
@@ -21,7 +27,6 @@
 #' @importFrom ggplot2 scale_shape_manual
 #' @importFrom ggplot2 scale_colour_manual
 visualize <- function(x, ...) {
-
   specificity <- sensitivity <- sp_lower <- se_lower <- reject_all <- NULL
 
   ## checks:
@@ -83,7 +88,8 @@ visualize <- function(x, ...) {
     ggplot2::scale_x_continuous(nn[1], breaks = seq(round(xsep), 1, 0.1)) +
     ## region of interest:
     ggplot2::geom_rect(ggplot2::aes(xmin = sp0, xmax = 1, ymin = se0, ymax = 1),
-                       alpha = 0.25, fill = col_roi, inherit.aes = F) +
+      alpha = 0.25, fill = col_roi, inherit.aes = F
+    ) +
     ## plot/axis setup:
     ggplot2::geom_linerange(ggplot2::aes(x = 1, ymin = ymin, ymax = 1), lwd = lwd1, inherit.aes = F) +
     ggplot2::geom_linerange(ggplot2::aes(y = 1, xmin = xmin, xmax = 1), lwd = lwd1, inherit.aes = F) +

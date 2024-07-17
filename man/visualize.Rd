@@ -7,16 +7,18 @@
 visualize(x, ...)
 }
 \arguments{
-\item{x, }{a \code{cases_results} object, see \code{\link{evaluate}}}
+\item{x}{\code{cases_results} \cr produced by \code{\link{evaluate}}}
 
-\item{...}{further arguments (currently ignored)}
+\item{...}{\code{any} \cr further arguments (currently ignored)}
 }
 \value{
 a ggplot
 }
 \description{
-Visualize evaluation results
+\strong{Currently, this implementation is only intended for situations with ...}
+\itemize{
+\item two groups (e.g. healthy (<-> specificity) and diseased (<-> sensitivity))
+\item alternative = "greater"
+\item contrast = define_contrast("raw)
 }
-\details{
-+++ early development version (only alternative = "greater" is supported) +++
 }

@@ -1,20 +1,21 @@
 #' Generate binary data (LFC model)
 #'
-#' @param n integer, total sample size
-#' @param prev numeric, disease and healthy prevalence (adds up to 1)
-#' @param random logical, random sampling (TRUE) or fixed prevalence (FALSE)
-#' @param m integer, number of models
-#' @param se numeric, sensitivity (length 1)
-#' @param sp numeric, specificity (length 1)
-#' @param B integer, between 1 and m, specifies how many sensitivity values are projected to 1
-#' @param L numeric, worst alternative is computed under side condition Acc <= L
+#' @param n (numeric) \cr integer, total sample size
+#' @param prev (numeric) \cr disease and healthy prevalence (length 2, adds up to 1)
+#' @param random (logical) \cr random sampling (TRUE) or fixed prevalence (FALSE)
+#' @param m (numeric) \cr integer, number of models
+#' @param se (numeric) \cr sensitivity (length 1)
+#' @param sp (numeric) \cr specificity (length 1)
+#' @param B (numeric) \cr integer, between 1 and m, specifies how many sensitivity values are projected to 1
+#' @param L (numeric) \cr worst alternative is computed under side condition Acc <= L
 #' (default value L=1 corresponds to true LFC where values are projected to 1)
-#' @param Rse matrix, correlation matrix for empirical sensitivities (m x m)
-#' @param Rsp matrix, correlation matrix for empirical specificities (m x m)
-#' @param modnames character, model names (length m)
-#' @param ... further arguments (currently unused)
+#' @param Rse (matrix) \cr correlation matrix for empirical sensitivities (m x m)
+#' @param Rsp (maxtrix) \cr correlation matrix for empirical specificities (m x m)
+#' @param modnames (modnames) \cr character, model names (length m)
+#' @param ... (any) \cr further arguments (currently unused)
 #'
-#' @return Generated binary dataset
+#' @return (list) \cr list of matrices including generated binary datasets
+#' (1: correct prediction, 0: incorrect prediction) for each subgroup (specificity, sensitivity)
 #' @export
 #'
 #' @examples

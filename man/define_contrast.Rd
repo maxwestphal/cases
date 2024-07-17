@@ -7,22 +7,22 @@
 define_contrast(type = c("raw", "one", "all"), comparator = NA)
 }
 \arguments{
-\item{type}{character, either "raw", "one" or "all")}
+\item{type}{(character) \cr either "raw", "one" or "all", see details.}
 
-\item{comparator}{either integer (index of comparator) or character (name of comparator)}
+\item{comparator}{(numeric | character) \cr either integer (index of comparator) or character (name of comparator)}
 }
 \value{
-\code{cases_contrast} object to be passed to \code{\link{evaluate}}
+(\code{cases_contrast}) \cr object to be passed to \code{\link{evaluate}}
 }
 \description{
 Define a contrast (matrix) to specify exact hypothesis system
 }
 \details{
-"raw" contrast: compare all candidates against specified benchmark values
-
-"one" ('all vs. one' or 'Dunnett') contrast: compare all candidates to a single comparator.
-
-"all" ('all vs. all' or 'Tukey') contrast: compare all candidates against each other.
+\itemize{
+\item "raw" contrast: compare all candidates against specified benchmark values
+\item "one" ('all vs. one' or 'Dunnett') contrast: compare all candidates to a single comparator.
+\item "all" ('all vs. all' or 'Tukey') contrast: compare all candidates against each other.
+}
 }
 \examples{
 define_contrast("one", 1)

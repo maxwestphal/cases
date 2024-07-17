@@ -23,45 +23,47 @@ generate_instance_roc(
 )
 }
 \arguments{
-\item{nrep}{integer, number of instances}
+\item{nrep}{(numeric) \cr integer, number of instances}
 
-\item{n}{integer, total sample size}
+\item{n}{(numeric) \cr integer, total sample size}
 
-\item{prev}{numeric, disease prevalence}
+\item{prev}{(numeric) \cr disease prevalence}
 
-\item{random}{logical, fixed prevalence (FALSE) or simple random sampling (TRUE)}
+\item{random}{(logical) \cr fixed prevalence (FALSE) or simple random sampling (TRUE)}
 
-\item{m}{integer, number of candidates}
+\item{m}{(numeric) \cr integer, number of candidates}
 
-\item{auc}{numeric}
+\item{auc}{(numeric) \cr vector of AUCs of biomarkers}
 
-\item{rhose}{numeric}
+\item{rhose}{(numeric) \cr correlation parameter for sensitivity}
 
-\item{rhosp}{numeric}
+\item{rhosp}{(numeric) \cr correlation parameter for specificity}
 
-\item{dist}{character}
+\item{dist}{(character) \cr either "normal" or "exponential" specifying the subgroup biomarker distributions}
 
-\item{e}{numeric}
+\item{e}{(numeric) \cr emulates better (worse) model selection quality with higher (lower) values of e}
 
-\item{k}{numeric}
+\item{k}{(numeric) \cr technical parameter which adjusts grid size}
 
-\item{delta}{numeric}
+\item{delta}{(numeric) \cr specify importance between sensitivity and specificity (default 0: equal importance)}
 
-\item{...}{further arguments}
+\item{...}{(any) \cr further arguments}
 
-\item{data}{ignored (for batchtools compatibility)}
+\item{data}{(NULL) \cr ignored (for batchtools compatibility)}
 
-\item{job}{ignored (for batchtools compatibility)}
+\item{job}{(NULL) \cr ignored (for batchtools compatibility)}
 }
 \value{
-a list, a single (ROC) simulation instance
+(list) \cr a single (ROC) simulation instance of length \code{nrep}
 }
 \description{
 Generates a (simulation) instance, a list of multiple datasets to be processed
 (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are
 initially generated according to a generative model whereby multiple decision rules (with
 different parameter values) are derived by thresholding multiple biomarkers.
+
+\strong{This function is only needed for simulation via batchtools, not relevant in interactive use!}
 }
 \details{
-Utilizes same arguments as \link{draw_data_roc} unless mentioned above.
+Utilizes same arguments as \link{draw_data_roc} unless mentioned otherwise above.
 }

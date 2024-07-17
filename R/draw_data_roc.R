@@ -1,21 +1,22 @@
 #' Generate binary data (ROC model)
 #'
-#' @param m integer, number of models
-#' @param auc numeric, vector of AUCs of biomarkers
-#' @param rho numeric, vector (length 2) of correlations between biomarkers
-#' @param dist character, either "normal" or "exponential" specifying the subgroup biomarker distributions
-#' @param delta numeric, specify importance of sensitivity and specificity (default 0)
-#' @param e numeric, emulates better (worse) model selection quality with higher (lower) values of e
-#' @param k integer, technical parameter which adjusts grid size
-#' @param n integer, total sample size
-#' @param prev numeric, disease and healthy prevalence (adds up to 1)
-#' @param random logical, random sampling (TRUE) or fixed prevalence (FALSE)
-#' @param modnames character, model names (length m)
-#' @param corrplot logical (default: FALSE), if TRUE do not return data but instead plot correlation
-#' matrices for final binary data
-#' @param ... further arguments (currently unused)
+#' @param m (numeric) \cr integer, number of models
+#' @param auc (numeric) \cr vector of AUCs of biomarkers
+#' @param rho (numeric) \cr vector (length 2) of correlations between biomarkers
+#' @param dist (character) \cr either "normal" or "exponential" specifying the subgroup biomarker distributions
+#' @param delta (numeric) \cr specify importance of sensitivity and specificity (default 0)
+#' @param e (numeric) \cr emulates better (worse) model selection quality with higher (lower) values of e
+#' @param k (numeric) \cr technical parameter which adjusts grid size
+#' @param n (numeric) \cr total sample size
+#' @param prev (numeric) \cr disease and healthy prevalence (adds up to 1)
+#' @param random (logical) \cr random sampling (TRUE) or fixed prevalence (FALSE)
+#' @param modnames (character) \cr model names (length m)
+#' @param corrplot (logical) \cr if TRUE do not return data but instead plot correlation
+#' matrices for final binary data  (default: FALSE)
+#' @param ... (any) \cr further arguments (currently unused)
 #'
-#' @return Generated binary dataset
+#' @return (list) \cr list of matrices including generated binary datasets
+#' (1: correct prediction, 0: incorrect prediction) for each subgroup (specificity, sensitivity)
 #' @export
 #'
 #' @examples

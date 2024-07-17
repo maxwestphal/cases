@@ -3,25 +3,28 @@
 #' \link{generate_instance_lfc} or \link{generate_instance_roc}. This function
 #' applies \link{evaluate} to all datasets.
 #'
-#' @param instance generated via \link{generate_instance_lfc} or \link{generate_instance_roc}.
-#' @param contrast \code{cases_contrast} object, specified via \code{\link{define_contrast}}
-#' @param benchmark value to compare against (RHS), should have same length as data.
-#' @param alpha numeric, significance level (default: 0.05)
-#' @param alternative character, specify alternative hypothesis
-#' @param adjustment character, specify type of statistical adjustment taken to address multiplicity
-#' @param transformation character, define transformation to ensure results
+#' \strong{This function is only needed for simulation via batchtools, not relevant in interactive use!}
+#'
+#' @param instance (list) \cr generated via \link{generate_instance_lfc} or \link{generate_instance_roc}.
+#' @param contrast (\code{cases_contrast}) \cr specified via \code{\link{define_contrast}}
+#' @param benchmark (numeric) \cr value to compare against (RHS), should have same length as data
+#' or length one if all benchmark values are identical.
+#' @param alpha (numeric) \cr significance level (default: 0.05)
+#' @param alternative (character) \cr specify alternative hypothesis
+#' @param adjustment (character) \cr specify type of statistical adjustment taken to address multiplicity
+#' @param transformation (character) \cr define transformation to ensure results
 #' (e.g. point estimates, confidence limits) lie in unit interval ("none" (default) or "logit")
-#' @param analysis character, "co-primary" (default; only option currently)
-#' @param regu numeric vector of length 3, specify type of shrinkage.
+#' @param analysis (character) \cr  "co-primary" (default; only option currently)
+#' @param regu (numeric | logical) \cr vector of length 3, specify type of shrinkage.
 #' Alternatively, logical of length one (TRUE := c(2, 1, 1/2), FALSE := c(0, 0, 0))
-#' @param pars further parameters given as named list
-#' @param ... additional named parameters
-#' @param data ignored (for batchtools compatibility)
-#' @param job for batchtools compatibility, do not change
+#' @param pars (list) \cr further parameters given as named list
+#' @param ... (any) \cr additional named parameters
+#' @param data (NULL) \cr ignored (for batchtools compatibility)
+#' @param job (NULL) \cr for batchtools compatibility, do not change
 #'
-#' @details Utilizes same arguments as \link{evaluate} unless mentioned above.
+#' @details Utilizes same arguments as \link{evaluate} unless mentioned otherwise above.
 #'
-#' @return standardized evaluation results
+#' @return (list) \cr standardized evaluation results
 #' @export
 process_instance <- function(instance = NULL,
                              contrast = "cases::define_contrast('raw', NA)",

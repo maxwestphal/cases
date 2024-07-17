@@ -15,23 +15,23 @@ draw_data(
 )
 }
 \arguments{
-\item{n}{integer, overall sample size}
+\item{n}{(numeric) \cr integer, overall sample size}
 
-\item{prev}{numeric, vector of class prevalences (adding up to 1)}
+\item{prev}{(numeric) \cr vector of class prevalences (adding up to 1)}
 
-\item{random}{logical, random sampling (TRUE) or fixed group sample sizes}
+\item{random}{(logical) \cr random sampling (TRUE) or fixed group sample sizes (FALSE)}
 
-\item{m}{integer, number of models}
+\item{m}{(numeric) \cr integer, number of models}
 
-\item{method}{character, either "roc", "lfc" (multiple subgroups) or "prob" (no subgroups)}
+\item{method}{(character) \cr either "roc", "lfc" (multiple subgroups) or "prob" (no subgroups)}
 
-\item{pars}{list, containing further named parameters passed to \code{\link{draw_data_roc}},
+\item{pars}{(list) \cr containing further named parameters passed to \code{\link{draw_data_roc}},
 \code{\link{draw_data_lfc}}}
 
-\item{...}{further named parameters passed}
+\item{...}{(any) \cr further named parameters passed}
 }
 \value{
-generated binary data (possibly stratified for subgroups)
+(matrix) \cr generated binary data (possibly stratified for subgroups)
 }
 \description{
 Generate binary data
