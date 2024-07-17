@@ -7,14 +7,14 @@
 draw_data_prb(n = 100, pr = c(0.8, 0.8), R = diag(length(pr)))
 }
 \arguments{
-\item{n}{integer, sample size}
+\item{n}{(numeric) \cr integer, sample size}
 
-\item{pr}{numeric, vector with marginal success probabilities}
+\item{pr}{(numeric) \cr vector with marginal success probabilities}
 
-\item{R}{matrix, square correlation matrix}
+\item{R}{(matrix) \cr square correlation matrix}
 }
 \value{
-a matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
+(matrix) \cr matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
 }
 \description{
 This function is wrapper for \code{\link[bindata]{rmvbin}}.

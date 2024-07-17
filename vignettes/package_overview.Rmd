@@ -155,7 +155,7 @@ data <- draw_data_roc(
   delta = 0.05, e = 10, auc = seq(0.90, 0.95, 0.025), rho = c(0.25, 0.25)
 )
 
-head(data)
+lapply(data, head)
 ```
 
 ```{r viz_comp}

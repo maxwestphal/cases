@@ -5,24 +5,26 @@
 #' least-favorable in the sense that the type-I error rate of the subsequently applied
 #' multiple test procedures is maximized.
 #'
-#' @param data ignored (for batchtools compatibility)
-#' @param job ignored (for batchtools compatibility)
-#' @param nrep integer, number of instances
-#' @param n integer, total sample size
-#' @param prev numeric, disease prevalence
-#' @param random logical, fixed prevalence (FALSE) or simple random sampling (TRUE)
-#' @param m integer, number of candidates
-#' @param se numeric
-#' @param sp numeric
-#' @param L numeric
-#' @param rhose numeric
-#' @param rhosp numeric
-#' @param cortype character, "equi" or "ak1"
-#' @param ... further arguments
+#' \strong{This function is only needed for simulation via batchtools, not relevant in interactive use!}
 #'
-#' @return a list, a single (LFC) simulation instance
+#' @param data (NULL) \cr ignored (for batchtools compatibility)
+#' @param job (NULL) \cr ignored (for batchtools compatibility)
+#' @param nrep (numeric) \cr integer, number of instances
+#' @param n (numeric) \cr integer, total sample size
+#' @param prev (numeric) \cr disease prevalence
+#' @param random (logical) \cr fixed prevalence (FALSE) or simple random sampling (TRUE)
+#' @param m (numeric) \cr integer, number of candidates
+#' @param se (numeric) \cr sensitivity
+#' @param sp (numeric) \cr specificity
+#' @param L (numeric) \cr worst alternative is computed under side condition Acc <= L
+#' @param rhose (numeric) \cr correlation parameter for sensitivity
+#' @param rhosp (numeric) \cr correlation parameter for specificity
+#' @param cortype (character) \cr  correlation type ("equi" or "ak1")
+#' @param ... (any) \cr further (named) arguments
 #'
-#' @details Utilizes same arguments as \link{draw_data_lfc} unless mentioned above.
+#' @return (list) \cr a single (LFC) simulation instance of length \code{nrep}
+#'
+#' @details Utilizes same arguments as \link{draw_data_lfc} unless mentioned otherwise above.
 #'
 #' @export
 generate_instance_lfc <- function(nrep = 10,
@@ -60,30 +62,34 @@ generate_instance_lfc <- function(nrep = 10,
 
 
 #' @title Generate data sets under realistic parameter configurations
+#'
 #' @description Generates a (simulation) instance, a list of multiple datasets to be processed
 #' (analyzed) with \link{process_instance}. Ground truth parameters (Sensitvity & Specificity) are
 #' initially generated according to a generative model whereby multiple decision rules (with
 #' different parameter values) are derived by thresholding multiple biomarkers.
 #'
-#' @param data ignored (for batchtools compatibility)
-#' @param job ignored (for batchtools compatibility)
-#' @param nrep integer, number of instances
-#' @param n integer, total sample size
-#' @param prev numeric, disease prevalence
-#' @param random logical, fixed prevalence (FALSE) or simple random sampling (TRUE)
-#' @param m integer, number of candidates
-#' @param auc numeric
-#' @param rhose numeric
-#' @param rhosp numeric
-#' @param dist character
-#' @param e numeric
-#' @param k numeric
-#' @param delta numeric
-#' @param ... further arguments
+#' \strong{This function is only needed for simulation via batchtools, not relevant in interactive use!}
 #'
-#' @return a list, a single (ROC) simulation instance
 #'
-#' @details Utilizes same arguments as \link{draw_data_roc} unless mentioned above.
+#' @param data (NULL) \cr ignored (for batchtools compatibility)
+#' @param job (NULL) \cr ignored (for batchtools compatibility)
+#' @param nrep (numeric) \cr integer, number of instances
+#' @param n (numeric) \cr integer, total sample size
+#' @param prev (numeric) \cr disease prevalence
+#' @param random (logical) \cr fixed prevalence (FALSE) or simple random sampling (TRUE)
+#' @param m (numeric) \cr integer, number of candidates
+#' @param auc (numeric) \cr vector of AUCs of biomarkers
+#' @param rhose (numeric) \cr correlation parameter for sensitivity
+#' @param rhosp (numeric) \cr correlation parameter for specificity
+#' @param dist (character) \cr either "normal" or "exponential" specifying the subgroup biomarker distributions
+#' @param e (numeric) \cr emulates better (worse) model selection quality with higher (lower) values of e
+#' @param k (numeric) \cr technical parameter which adjusts grid size
+#' @param delta (numeric) \cr specify importance between sensitivity and specificity (default 0: equal importance)
+#' @param ... (any) \cr further arguments
+#'
+#' @return (list) \cr a single (ROC) simulation instance of length \code{nrep}
+#'
+#' @details Utilizes same arguments as \link{draw_data_roc} unless mentioned otherwise above.
 #'
 #' @export
 generate_instance_roc <- function(nrep = 10,

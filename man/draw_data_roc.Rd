@@ -21,35 +21,36 @@ draw_data_roc(
 )
 }
 \arguments{
-\item{n}{integer, total sample size}
+\item{n}{(numeric) \cr total sample size}
 
-\item{prev}{numeric, disease and healthy prevalence (adds up to 1)}
+\item{prev}{(numeric) \cr disease and healthy prevalence (adds up to 1)}
 
-\item{random}{logical, random sampling (TRUE) or fixed prevalence (FALSE)}
+\item{random}{(logical) \cr random sampling (TRUE) or fixed prevalence (FALSE)}
 
-\item{m}{integer, number of models}
+\item{m}{(numeric) \cr integer, number of models}
 
-\item{auc}{numeric, vector of AUCs of biomarkers}
+\item{auc}{(numeric) \cr vector of AUCs of biomarkers}
 
-\item{rho}{numeric, vector (length 2) of correlations between biomarkers}
+\item{rho}{(numeric) \cr vector (length 2) of correlations between biomarkers}
 
-\item{dist}{character, either "normal" or "exponential" specifying the subgroup biomarker distributions}
+\item{dist}{(character) \cr either "normal" or "exponential" specifying the subgroup biomarker distributions}
 
-\item{e}{numeric, emulates better (worse) model selection quality with higher (lower) values of e}
+\item{e}{(numeric) \cr emulates better (worse) model selection quality with higher (lower) values of e}
 
-\item{k}{integer, technical parameter which adjusts grid size}
+\item{k}{(numeric) \cr technical parameter which adjusts grid size}
 
-\item{delta}{numeric, specify importance of sensitivity and specificity (default 0)}
+\item{delta}{(numeric) \cr specify importance of sensitivity and specificity (default 0)}
 
-\item{modnames}{character, model names (length m)}
+\item{modnames}{(character) \cr model names (length m)}
 
-\item{corrplot}{logical (default: FALSE), if TRUE do not return data but instead plot correlation
-matrices for final binary data}
+\item{corrplot}{(logical) \cr if TRUE do not return data but instead plot correlation
+matrices for final binary data  (default: FALSE)}
 
-\item{...}{further arguments (currently unused)}
+\item{...}{(any) \cr further arguments (currently unused)}
 }
 \value{
-Generated binary dataset
+(list) \cr list of matrices including generated binary datasets
+(1: correct prediction, 0: incorrect prediction) for each subgroup (specificity, sensitivity)
 }
 \description{
 Generate binary data (ROC model)

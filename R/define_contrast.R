@@ -1,16 +1,14 @@
 #' Define a contrast (matrix) to specify exact hypothesis system
 #'
-#' @param type character, either "raw", "one" or "all")
-#' @param comparator either integer (index of comparator) or character (name of comparator)
+#' @param type (character) \cr either "raw", "one" or "all", see details.
+#' @param comparator (numeric | character) \cr either integer (index of comparator) or character (name of comparator)
 #'
 #' @details
-#' "raw" contrast: compare all candidates against specified benchmark values
+#' * "raw" contrast: compare all candidates against specified benchmark values
+#' * "one" ('all vs. one' or 'Dunnett') contrast: compare all candidates to a single comparator.
+#' * "all" ('all vs. all' or 'Tukey') contrast: compare all candidates against each other.
 #'
-#' "one" ('all vs. one' or 'Dunnett') contrast: compare all candidates to a single comparator.
-#'
-#' "all" ('all vs. all' or 'Tukey') contrast: compare all candidates against each other.
-#'
-#' @return \code{cases_contrast} object to be passed to \code{\link{evaluate}}
+#' @return (\code{cases_contrast}) \cr object to be passed to \code{\link{evaluate}}
 #' @export
 #'
 #' @examples

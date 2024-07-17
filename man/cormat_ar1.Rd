@@ -7,15 +7,16 @@
 cormat_ar1(m, rho, d = TRUE)
 }
 \arguments{
-\item{m}{integer, dimension}
+\item{m}{(numeric) \cr dimensions of the (square) matrix}
 
-\item{rho}{numeric, correlation parameter in (0,1)}
+\item{rho}{(numeric) \cr correlation parameter in (0,1)}
 
-\item{d}{binary vector of length m, whereby TRUE/FALSE (alternatively 1/0)
+\item{d}{(logical | numeric) \cr binary vector of length m, whereby TRUE/FALSE (alternatively 1/0)
 indicate active/inactive components of underlying random vector.}
 }
 \value{
-\eqn{R_{ij} = \rho^{|i-j|}}
+(matrix) \cr
+AR(1) correlation matrix R with entries \eqn{R_{ij} = \rho^{|i-j|}}
 }
 \description{
 Create an AR(1) correlation matrix

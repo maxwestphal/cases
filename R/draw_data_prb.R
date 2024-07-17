@@ -1,15 +1,15 @@
 #' Generate binary data
 #'
-#' @param n integer, overall sample size
-#' @param m integer, number of models
-#' @param prev numeric, vector of class prevalences (adding up to 1)
-#' @param random logical, random sampling (TRUE) or fixed group sample sizes
-#' @param method character, either "roc", "lfc" (multiple subgroups) or "prob" (no subgroups)
-#' @param pars list, containing further named parameters passed to \code{\link{draw_data_roc}},
+#' @param n (numeric) \cr integer, overall sample size
+#' @param m (numeric) \cr integer, number of models
+#' @param prev (numeric) \cr vector of class prevalences (adding up to 1)
+#' @param random (logical) \cr random sampling (TRUE) or fixed group sample sizes (FALSE)
+#' @param method (character) \cr either "roc", "lfc" (multiple subgroups) or "prob" (no subgroups)
+#' @param pars (list) \cr containing further named parameters passed to \code{\link{draw_data_roc}},
 #'  \code{\link{draw_data_lfc}}
-#' @param ... further named parameters passed
+#' @param ... (any) \cr further named parameters passed
 #'
-#' @return generated binary data (possibly stratified for subgroups)
+#' @return (matrix) \cr generated binary data (possibly stratified for subgroups)
 #' @export
 #'
 #' @examples draw_data()
@@ -32,11 +32,11 @@ draw_data <- function(n = 200,
 #'
 #' @description This function is wrapper for \code{\link[bindata]{rmvbin}}.
 #'
-#' @param n integer, sample size
-#' @param pr numeric, vector with marginal success probabilities
-#' @param R matrix, square correlation matrix
+#' @param n (numeric) \cr integer, sample size
+#' @param pr (numeric) \cr vector with marginal success probabilities
+#' @param R (matrix) \cr square correlation matrix
 #'
-#' @return a matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
+#' @return (matrix) \cr matrix with n rows and length(pr) columns of randomly generated binary (0, 1) data
 #'
 #' @importFrom bindata rmvbin
 #' @export

@@ -14,6 +14,14 @@ sensitivity (true positive rate, TPR) and specificity (true negative rate, TNR).
 \details{
 The package functionality and syntax is described in the vignettes, see examples.
 }
+\examples{
+# overview over package functionality:
+vignette("package_overview")
+
+# a real-world data example:
+vignette("example_wdbc")
+
+}
 \references{
 Westphal M, Zapf A.
 Statistical inference for diagnostic test accuracy studies with multiple comparisons.

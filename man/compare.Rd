@@ -12,16 +12,20 @@ compare(
 )
 }
 \arguments{
-\item{predictions}{integer, predicted class}
+\item{predictions}{(numeric | character) \cr vector of class predictions, class and unique values+
+need to match those of \code{labels}.}
 
-\item{labels}{integer, true class state (reference standard)}
+\item{labels}{(numeric | character) \cr vector of true class labels (reference standard)}
 
-\item{partition}{logical, should result be split into one matrix per class (TRUE; default) or not (FALSE)}
+\item{partition}{(logical) \cr should result be split into one matrix per class (TRUE; default) or not (FALSE)}
 
-\item{names}{integer (named), values give data values, names give class names}
+\item{names}{(character | NULL) \cr named character. Values specify data values, names specify class names.
+If \code{names=NULL}, the values and names are defined as \code{unique(labels)}}
 }
 \value{
-data matrix with values 1 (correct prediction) and 0 (false prediction)
+(list | matrix) \cr list of matrices (one for each unique value of \code{labels}) with
+values 1 (correct prediction) and 0 (false prediction).
+If \code{partition=TRUE}, the matrices are combined in a single matrix with \code{rbind}.
 }
 \description{
 Compare predictions and labels

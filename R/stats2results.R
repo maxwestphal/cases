@@ -44,6 +44,7 @@ stats2results <- function(stats,
 #' @importFrom dplyr rename mutate
 #'
 #' @return "cases_results" object
+#' @noRd
 complete_results <- function(results, benchmark) {
   lower <- upper <- NULL
 
