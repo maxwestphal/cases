@@ -4,6 +4,6 @@ test_that("argmin/argmax", {
 })
 
 test_that("pargmin/pargmax", {
-  expect_equal(pargmin(c(7,8,9), c(9,8,7)), c(1,1,2))
-  expect_equal(pargmax(c(7,8,9), c(9,8,7)), c(2,1,1))
+  expect_equal(pargmin(c(7, 8, 9), c(9, 8, 7)), c(1, 1, 2))
+  expect_equal(pargmax(c(7, 8, 9), c(9, 8, 7)), c(2, 1, 1))
 })

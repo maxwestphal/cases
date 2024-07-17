@@ -36,7 +36,7 @@ function.
 ```{r categorize1}
 # real data example from publication here
 set.seed(123)
-M <- as.data.frame(mvtnorm::rmvnorm(10, mean=rep(0, 3), sigma=2*diag(3)))
+M <- as.data.frame(mvtnorm::rmvnorm(10, mean = rep(0, 3), sigma = 2 * diag(3)))
 M
 
 ## categorize at 0 by default
@@ -50,7 +50,7 @@ categorize(M, C, a)
 
 
 ## this can even be used to do multi-class classification, like this:
-C <- matrix(rep(c(-1, 0, 1, -2, 0, 2), 3), ncol=3, byrow = TRUE)
+C <- matrix(rep(c(-1, 0, 1, -2, 0, 2), 3), ncol = 3, byrow = TRUE)
 C
 categorize(M, C, a)
 ```
@@ -71,7 +71,7 @@ yhat
 ## assume true labels
 y <- c(rep(1, 5), rep(0, 5))
 
-## compare then results in 
+## compare then results in
 compare(yhat, y)
 ```
 
@@ -90,12 +90,12 @@ More details on the dta function are provided in the last section
 cases includes a few functions for synthetic data generation
 
 ```{r draw_data1}
-draw_data_lfc(n=20)
+draw_data_lfc(n = 20)
 ```
 
 
 ```{r draw_data2}
-draw_data_roc(n=20)
+draw_data_roc(n = 20)
 ```
 
 Remark: Synthetic data comes at the 'compared' level meaning the labels 1 and 0
@@ -124,7 +124,7 @@ M %>%
 The R command
 
 ```{r dtafun1, eval=FALSE}
-?evaluate 
+?evaluate
 ```
 
 gives an overview over the function arguments of the evaluate function.
@@ -150,32 +150,38 @@ In the following, we highlight the difference between the "co-primary" analysis 
 ```{r}
 set.seed(1337)
 
-data <- draw_data_roc(n=120, prev=c(0.25, 0.75), m=4,
-                      delta=0.05, e=10, auc=seq(0.90, 0.95, 0.025), rho=c(0.25, 0.25))
+data <- draw_data_roc(
+  n = 120, prev = c(0.25, 0.75), m = 4,
+  delta = 0.05, e = 10, auc = seq(0.90, 0.95, 0.025), rho = c(0.25, 0.25)
+)
 
 head(data)
 ```
 
 ```{r viz_comp}
 ## comparison regions
-results_comp <- data %>% evaluate(alternative ="greater",
-                                  alpha=0.025,
-                                  benchmark = c(0.7, 0.8),
-                                  analysis = "co-primary",
-                                  regu = TRUE,
-                                  adj = "maxt")
+results_comp <- data %>% evaluate(
+  alternative = "greater",
+  alpha = 0.025,
+  benchmark = c(0.7, 0.8),
+  analysis = "co-primary",
+  regu = TRUE,
+  adj = "maxt"
+)
 visualize(results_comp)
 ```
 
 
 ```{r}
 ## confidence regions
-results_conf <- data %>% evaluate(alternative = "greater",
-                                  alpha = 0.025,
-                                  benchmark = c(0.7, 0.8),
-                                  analysis = "full",
-                                  regu = TRUE,
-                                  adj = "maxt")
+results_conf <- data %>% evaluate(
+  alternative = "greater",
+  alpha = 0.025,
+  benchmark = c(0.7, 0.8),
+  analysis = "full",
+  regu = TRUE,
+  adj = "maxt"
+)
 visualize(results_conf)
 ```
 

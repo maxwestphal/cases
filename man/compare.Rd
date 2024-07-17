@@ -27,7 +27,7 @@ data matrix with values 1 (correct prediction) and 0 (false prediction)
 Compare predictions and labels
 }
 \examples{
-pred <- matrix(c(1,1,0), 5, 3)
+pred <- matrix(c(1, 1, 0), 5, 3)
 labels <- c(1, 1, 0, 0, 1)
 compare(pred, labels, FALSE)
 compare(pred, labels, TRUE)

@@ -11,7 +11,7 @@ evaluate(
   alpha = 0.05,
   alternative = c("two.sided", "greater", "less"),
   adjustment = c("none", "bonferroni", "maxt", "bootstrap", "mbeta"),
-  transformation = c("none", "logit"),
+  transformation = c("none", "logit", "arcsin"),
   analysis = c("co-primary", "full"),
   regu = FALSE,
   pars = list(),
@@ -30,7 +30,8 @@ g is the index of subgroups/classes, usually created via \code{\link{compare}}.}
 
 \item{alternative}{character, specify alternative hypothesis}
 
-\item{adjustment}{character, specify type of statistical adjustment taken to address multiplicity}
+\item{adjustment}{character, specify type of statistical adjustment taken to address multiplicity.
+The default 'none' does not perform any adjustment for multiplicity.}
 
 \item{transformation}{character, define transformation to ensure results
 (e.g. point estimates, confidence limits) lie in unit interval ("none" (default) or "logit")}
@@ -63,11 +64,12 @@ Adjustment methods (\code{adjustment}) and additional parameters (\code{pars} or
 
 \strong{"bootstrap"}: Bootstrap approach
 \itemize{
-\item type: type of bootstrap, "pairs" (default) or "wild"
 \item nboot: number of bootstrap draws (default: 2000)
+\item type: type of bootstrap, "pairs" (default) or "wild"
 \item dist: residual distribution for wild bootstrap, "Normal" (default) or "Rademacher"
 \item res_tra: type of residual transformation for wild boostrap, 0,1,2 or 3 (default: 0 = no transformation)
-(for details, see https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf)
+(for details on res_tra options, see this presentation by
+\href{https://www.math.kth.se/matstat/gru/sf2930/papers/wild.bootstrap.pdf}{James G. MacKinnon (2012)} and references therein)
 }
 
 \strong{"mbeta"}: A heuristic Bayesian approach which is based on a multivariate beta-binomial model.
