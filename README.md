@@ -7,11 +7,11 @@
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![](https://img.shields.io/badge/devel%20version-0.1.8-blue.svg)](https://github.com/maxwestphal/cases)
+[![](https://img.shields.io/badge/devel%20version-0.2.0-blue.svg)](https://github.com/maxwestphal/cases)
 [![](https://www.r-pkg.org/badges/version/cases?color=orange)](https://cran.r-project.org/package=cases)
 [![R build
 status](https://github.com/maxwestphal/cases/workflows/R-CMD-check/badge.svg)](https://github.com/maxwestphal/cases/actions)
-[![](https://codecov.io/gh/maxwestphal/cases/branch/main/graph/badge.svg)](https://codecov.io/gh/maxwestphal/cases)
+[![](https://codecov.io/gh/maxwestphal/cases/branch/main/graph/badge.svg)](https://app.codecov.io/gh/maxwestphal/cases)
 [![](https://img.shields.io/badge/paper-SMMR-gold.svg)](https://journals.sagepub.com/doi/full/10.1177/09622802241236933)
 [![](https://img.shields.io/badge/preprint-arXiv-gold.svg)](https://arxiv.org/abs/2105.13469)
 <!-- badges: end -->
