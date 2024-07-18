@@ -23,7 +23,7 @@ get_tf <- function(transformation = c("none", "logit", "arcsin")) {
   }
   if (transformation == "arcsin") {
     tf$est_link <- function(x) {
-      asin(sqrt(x))
+      2*asin(sqrt(x))
     }
     tf$est_inv <- function(y) {
       sapply(y, function(z) {
@@ -33,7 +33,7 @@ get_tf <- function(transformation = c("none", "logit", "arcsin")) {
         if (z == +Inf) {
           return(1)
         }
-        (sin(z))^2
+        (sin(z/2))^2
       })
     }
     tf$se_link <- function(se, n, est) {
