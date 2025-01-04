@@ -5,6 +5,8 @@ vignette: >
   %\VignetteIndexEntry{Real-world example: biomarker assessment and prediction model evaluation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{glmnet}
+  %\VignetteDepends{splitstackshape}
 ---
 
 The goal of is this vignette is to illustrate the cases functionality by means of a real-world 
@@ -26,9 +28,9 @@ Load the package:
 ```{r setup}
 ## load packages:
 library(dplyr)
-library(splitstackshape)
-library(glmnet)
 library(cases)
+library(glmnet)
+library(splitstackshape)
 ```
 
 

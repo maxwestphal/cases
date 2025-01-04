@@ -5,6 +5,6 @@
 * Added pkgdown site [maxwestphal.github.io/cases/](https://maxwestphal.github.io/cases/)
 * Bugfixes for several types of analyses that were not utilized 
 (in [simulation study](https://github.com/maxwestphal/cases_simstudy)) so far, mainly concerned 
-with evaluate arguments `analysis="full"` and `alternative="two.sided"`
+with evaluate arguments `analysis="full"` and `alternative="two.sided"`.
 * Additional unit test have been added.
 

@@ -27,3 +27,4 @@
 #' @aliases cases-package
 #' @name cases
 "_PACKAGE"
+
