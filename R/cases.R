@@ -26,9 +26,5 @@
 #' @docType package
 #' @aliases cases-package
 #' @name cases
-#' @importFrom splitstackshape stratified
 "_PACKAGE"
 
-ignore_unused_imports <- function() {
-  splitstackshape::stratified
-}

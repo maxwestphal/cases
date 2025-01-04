@@ -28,8 +28,9 @@ Load the package:
 ```{r setup}
 ## load packages:
 library(dplyr)
-library(glmnet)
 library(cases)
+library(glmnet)
+library(splitstackshape)
 ```
 
 
@@ -109,7 +110,7 @@ visualize(results_bm)
 ```{r}
 ## data splitting:
 set.seed(1337)
-split <- splitstackshape::stratified(data, c("diagnosis"), 1 / 3, bothSets = TRUE)
+split <- stratified(data, c("diagnosis"), 1 / 3, bothSets = TRUE)
 val <- split[[1]] %>% as.data.frame()
 trn <- split[[2]] %>% as.data.frame()
 dim(trn)
