@@ -23,15 +23,15 @@ Imports:
     Matrix,
     multcomp,
     mvtnorm,
-    ggplot2
+    ggplot2,
+    splitstackshape
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
     covr,
     badger,
-    glmnet,
-    splitstackshape
+    glmnet
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr, rmarkdown
