@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Real-world example: biomarker assessment and prediction model evaluation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{glmnet}
   %\VignetteDepends{splitstackshape}
 ---
 
