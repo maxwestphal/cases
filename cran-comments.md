@@ -2,15 +2,15 @@
 
 ## Test environments
 
-- macos-latest (release)
-- windows-latest (release)
-- ubuntu-latest (devel)
-- ubuntu-latest (release)
-- ubuntu-latest (oldrel-1)
+- ubuntu-latest on GitHub
+- macos-13 on GitHub
+- macos-latest on GitHub
+- windows-latest on GitHub
+
 
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note
 
 ```
 > checking CRAN incoming feasibility ... [12s] NOTE
@@ -22,17 +22,6 @@
 ```
 
 * Only the contact email has changed, the maintainer remains unaltered.
-
-
-
-```
-> checking for detritus in the temp directory ... NOTE
-  Found the following files/directories:
-    'lastMiKTeXException'
-```
-
-* According to [R-hub issue #503](https://github.com/r-hub/rhub/issues/503), this can likely
-be ignored.
 
 
 ## Reverse dependencies
