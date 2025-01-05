@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   example_wdbc: example_wdbc.html
   package_overview: package_overview.html
-last_built: 2025-01-04T16:12Z
+last_built: 2025-01-05T22:04Z
 urls:
   reference: https://maxwestphal.github.io/cases/reference
   article: https://maxwestphal.github.io/cases/articles
